@@ -1,0 +1,17 @@
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Secrets / env (none expected in this repo, here as a guard)
+.env
+.env.*
+*.key
+*.pem
+secrets/
+
+# Node / build (not used here, guard only)
+node_modules/
+*.log
+.vercel/
