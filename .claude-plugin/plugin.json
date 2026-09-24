@@ -2,7 +2,7 @@
   "name": "paidsync",
   "displayName": "PaidSync",
   "version": "1.0.0",
-  "description": "The PaidSync MCP server for Claude Code, with OAuth sign-in and 530+ tools across 14 ad and analytics platforms, plus six ads skills for audits, wasted spend, negatives, creative fatigue, LinkedIn QA and tracking health.",
+  "description": "Six PaidSync ads skills for Claude Code: wasted spend, negative keywords, Meta audit, creative fatigue, LinkedIn campaign QA and tracking health. Runs on the PaidSync.ai connector from Claude's connector directory.",
   "author": {
     "name": "PaidSync",
     "email": "support@paidsync.ai",

@@ -1,81 +1,48 @@
 # PaidSync plugin for Claude Code
 
-Connect Claude Code to your own ad and analytics accounts through the [PaidSync](https://paidsync.ai) MCP server, and add six ads skills that end in done work, not a list for later: wasted spend, negative keywords, a Meta audit, creative fatigue, LinkedIn launch QA and tracking health.
-
-PaidSync covers 14 platforms: Google Ads, Meta, LinkedIn, TikTok, Microsoft, Snapchat, Reddit, Pinterest, X and ChatGPT Ads, plus GA4, Google Tag Manager, Search Console and Merchant Center.
+Six ads skills for Claude Code that end in done work, not a list for later: wasted spend, negative keywords, a Meta audit, creative fatigue, LinkedIn launch QA and tracking health. They run on [PaidSync](https://paidsync.ai), which connects Claude to your own ad and analytics accounts on 14 platforms: Google Ads, Meta, LinkedIn, TikTok, Microsoft, Snapchat, Reddit, Pinterest, X and ChatGPT Ads, plus GA4, Google Tag Manager, Search Console and Merchant Center.
 
 ## Install
 
-In Claude Code:
+1. **Connect PaidSync.ai in Claude.** Open https://claude.ai/directory/9f9cc23d-337e-4547-b740-9cb90c5d3e60, click Connect and sign in. The free plan needs no card. If you use Claude Code with your claude.ai login, the connector appears in Claude Code by itself (check with `/mcp`).
+2. **Install the skills.** In Claude Code:
 
 ```
 /plugin marketplace add PaidSync/paidsync-skill
 /plugin install paidsync@paidsync
 ```
 
-Or in one line, on Claude Code 2.1.275 or later:
+Or in one line, on Claude Code 2.1.275 or later: `/plugin install paidsync --marketplace PaidSync/paidsync-skill`
 
-```
-/plugin install paidsync --marketplace PaidSync/paidsync-skill
-```
+Using Claude Code with an API key instead of a claude.ai login? Claude.ai connectors do not load then, so add the server yourself: `claude mcp add --transport http paidsync https://mcp.paidsync.ai/mcp`, then `/mcp` to sign in.
 
-Then type `/mcp`, pick PaidSync and sign in. The free plan needs no card: https://paidsync.ai/signup
+## What can change your ad accounts
 
-Using Claude on the web or the desktop app instead? Add PaidSync.ai from the Connectors Directory: https://claude.ai/directory/9f9cc23d-337e-4547-b740-9cb90c5d3e60
+When Claude calls PaidSync over MCP, PaidSync writes no approval card, so the human check is Claude's own confirmation prompt before a tool runs. Google Ads creates and most other creates are previewed with `dry_run`, destructive operations need `confirm_destructive`, and applied changes are logged, on a best-effort basis, with a 7-day before-and-after outcome. Approval cards and one-tap undo apply only in the PaidSync workspace. If you allow PaidSync tools without a prompt, no person confirms those calls. Details: https://paidsync.ai/security
 
 ## What is in this repo
 
 ```
 .claude-plugin/plugin.json        the plugin manifest
 .claude-plugin/marketplace.json   lets Claude Code install the plugin straight from this repo
-.mcp.json                         the PaidSync server, https://mcp.paidsync.ai/mcp (OAuth, no key stored)
 skills/                           the six skills, plain instructions with no scripts
 paidsync/                         the original standalone Agent Skill, for use without the plugin
-scripts/sync-plugin.mjs           copies the plugin from the paidsync.ai build; not loaded by Claude
+scripts/sync-plugin.mjs           copies the skills from the paidsync.ai build; not loaded by Claude
 ```
 
-Everything the plugin does is in `.mcp.json` and `skills/`. Read them before you install, as you should with any plugin.
+The plugin has no server connection of its own on purpose: it uses your PaidSync.ai connector. Everything it adds is in `skills/`. Read them before you install, as you should with any plugin.
 
 <!-- GEN:plugin-readme:start. Written by scripts/sync-plugin.mjs, do not edit by hand. -->
-## PaidSync for Claude Code
+## The skills
 
-This plugin connects Claude Code to your ad accounts through the PaidSync MCP server, with 530+ tools across 14 ad and analytics platforms, and adds six ads skills.
+- `/paidsync:creative-fatigue-scan`. Scan Meta ads for creative fatigue by comparing frequency, CTR and cost per result across two 14-day windows, then pause or rebalance fatigued ads through the PaidSync MCP server after a dry run and the user's yes. Use when Meta results are sliding or someone asks which ads are tired.
+- `/paidsync:linkedin-campaign-qa`. QA every live LinkedIn Ads campaign against a launch checklist (results, audience size, end dates, budgets, duplicates, conversion tracking), then fix failures through the PaidSync MCP server after a dry run and the user's yes. Use before or after a LinkedIn launch, or when LinkedIn spend is not producing leads.
+- `/paidsync:meta-ads-audit`. Audit a Meta ad account by composing PaidSync read tools one check at a time (account status, pixel events, structure, delivery, creative, placements, audiences, recent changes), so every finding carries the numbers it came from. Fixes run through the PaidSync MCP server only after a dry run and the user's yes. Use for a Meta or Facebook Ads audit or health check.
+- `/paidsync:negative-keyword-triage`. Weekly Google Ads search term triage. Sort new terms into block, watch and harvest, then apply blocks as negatives and harvests as exact match keywords through the PaidSync MCP server, each after a dry run and its own yes. Use for a weekly search term review.
+- `/paidsync:tracking-health`. Check conversion tracking health across Google Tag Manager, GA4, Google Ads and the Meta pixel through the PaidSync MCP server. Finds duplicate, orphaned and silent conversion tags and events, and reads each tag's consent settings. It does not audit Consent Mode. Fixes are staged in a workspace after the user's yes, and publishing needs a second yes.
+- `/paidsync:wasted-spend-hunter`. Find Google Ads search terms that spend money with zero conversions, then block them with negative keywords through the PaidSync MCP server after a dry run and the user's yes. Use when someone asks about wasted spend, zero-conversion search terms, or which negatives to add.
 
-### What it installs
-
-- A server entry named `paidsync` that points at `https://mcp.paidsync.ai/mcp`. It signs in with OAuth. No key is stored in the plugin.
-- Six skills. Claude Code loads them automatically, and each one is also a slash command:
-
-  - Wasted Spend Hunter, `/paidsync:wasted-spend-hunter`. Blocks Google Ads search terms that spend and never convert.
-  - Negative Keyword Triage, `/paidsync:negative-keyword-triage`. Weekly search term triage into block, watch and harvest.
-  - Meta Ads Audit, `/paidsync:meta-ads-audit`. Eight-check Meta audit that composes read tools, one check at a time.
-  - Creative Fatigue Scan, `/paidsync:creative-fatigue-scan`. Finds tired Meta ads, then pauses or rebalances them.
-  - LinkedIn Campaign QA, `/paidsync:linkedin-campaign-qa`. Launch checklist for every live LinkedIn campaign.
-  - Tracking Health, `/paidsync:tracking-health`. Finds broken conversion tracking and reads tag consent settings.
-
-### Sign in
-
-After the install, type `/mcp` in a Claude Code session, pick the PaidSync server and sign in with your PaidSync login. No PaidSync account yet? Create one at https://paidsync.ai/signup. The free plan needs no card.
-
-If you already added PaidSync with `claude mcp add`, keep it. Both entries point at the same URL, so Claude Code connects to it once.
-
-### What can change your ad accounts
-
-When Claude Code calls PaidSync over MCP, PaidSync writes no approval card, so the human check is Claude Code's own confirmation prompt before a tool runs. Google Ads creates and most other creates are previewed with `dry_run`, destructive operations need `confirm_destructive`, and applied changes are logged, on a best-effort basis, with a 7-day before-and-after outcome. Approval cards and one-tap undo apply only in the PaidSync workspace. If you allow PaidSync tools without a prompt, for example with `--allowedTools`, no person confirms those calls.
-
-Details: https://paidsync.ai/security
-
-### Update or remove
-
-- Update: `/plugin marketplace update paidsync`
-- Remove: `/plugin uninstall paidsync@paidsync`
-
-The plugin needs Claude Code 2.1.224 or later.
-
-Setup guide: https://paidsync.ai/connect/ads-to-claude-code
-Support: support@paidsync.ai
-
-The plugin files in this repo are byte-identical to https://paidsync.ai/.claude-plugin/paidsync-1.0.0.zip (version 1.0.0, sha256 `902bb734374611108b97306d4b673f4228b26b86ca7eca990c4928d6d81e1c47`).
+The skills are byte-identical to the ones in https://paidsync.ai/.claude-plugin/paidsync-1.0.0.zip (version 1.0.0, sha256 `d635cf3aff1f1545900f73480124fb42ec6ec415d474211aa41daadc635775bb`). This copy leaves out that build's own server connection on purpose, so Claude Code uses your PaidSync.ai connector.
 <!-- GEN:plugin-readme:end -->
 
 ## Standalone skill

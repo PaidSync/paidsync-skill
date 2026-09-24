@@ -1,6 +1,6 @@
 ---
 name: paidsync
-description: Manage paid media across 14 platforms (Google Ads, Meta, TikTok, LinkedIn, Snapchat, Reddit, Pinterest, Microsoft, X, ChatGPT Ads, plus GA4, GTM, Search Console, Merchant Center) through the PaidSync MCP server. Use when the user wants to audit ad accounts, find wasted spend, pause underperformers, adjust budgets or bids, build audiences, write ads, compare performance across platforms, or set up conversion tracking, and the PaidSync connector is available. Enforces approval-gated execution, draft every change and confirm before applying.
+description: Manage paid media across 14 platforms (Google Ads, Meta, TikTok, LinkedIn, Snapchat, Reddit, Pinterest, Microsoft, X, ChatGPT Ads, plus GA4, GTM, Search Console, Merchant Center) through the PaidSync MCP server. Use when the user wants to audit ad accounts, find wasted spend, pause underperformers, adjust budgets or bids, build audiences, write ads, compare performance across platforms, or set up conversion tracking, and the PaidSync connector is available. Tells Claude to draft every change and apply it only after the user confirms.
 ---
 
 # PaidSync
@@ -22,7 +22,7 @@ Use this skill only when the PaidSync connector is connected. If its tools are n
 PaidSync exposes a small set of tools. The full catalog of platform actions runs through the executor.
 
 - `paidsync_context`: who is connected, which accounts exist, what is active. Always start here.
-- `paidsync_exec`: the executor that runs a PaidSync action (audit, read, or an approval-gated write) on any connected platform.
+- `paidsync_exec`: the executor that runs a PaidSync action (audit, read, or write; over MCP the human check is your client's confirmation prompt) on any connected platform.
 - `paidsync_tool_detail`: look up a specific action and its inputs when you need an exact operation.
 - `set_active_account`: choose which ad account a request targets.
 - `paidsync_recent_runs`: review what was run recently before repeating or undoing work.

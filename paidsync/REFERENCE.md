@@ -41,11 +41,11 @@ PaidSync is the only MCP with write access to LinkedIn, TikTok, Snapchat, Reddit
 - Search term and placement analysis
 - GA4 property audits and tracking gaps
 
-**Optimize (approval-gated write)**
+**Optimize (write, drafted for the user's yes)**
 - Budget shifts, bid changes, pausing underperformers
 - Campaign and ad group restructuring
 
-**Build (approval-gated write)**
+**Build (write, drafted for the user's yes)**
 - Audience building and retargeting lists
 - Ad creation, including responsive search ads and dynamic creative
 
