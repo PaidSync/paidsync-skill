@@ -1,0 +1,21 @@
+{
+  "name": "paidsync",
+  "displayName": "PaidSync",
+  "version": "1.0.0",
+  "description": "The PaidSync MCP server for Claude Code, with OAuth sign-in and 530+ tools across 14 ad and analytics platforms, plus six ads skills for audits, wasted spend, negatives, creative fatigue, LinkedIn QA and tracking health.",
+  "author": {
+    "name": "PaidSync",
+    "email": "support@paidsync.ai",
+    "url": "https://paidsync.ai"
+  },
+  "homepage": "https://paidsync.ai/connect/ads-to-claude-code",
+  "keywords": [
+    "google-ads",
+    "meta-ads",
+    "linkedin-ads",
+    "tiktok-ads",
+    "ppc",
+    "advertising",
+    "mcp"
+  ]
+}
