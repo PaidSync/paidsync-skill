@@ -2,13 +2,13 @@
 
 The full platform list, capabilities, and example prompts. Load this when you need the complete surface; the core workflow lives in SKILL.md.
 
-PaidSync runs a user's own paid media accounts across 13 platforms through one MCP endpoint, with hundreds of tools reachable through the executor. Every write is drafted and applies only after the user confirms.
+PaidSync runs a user's own paid media accounts across 14 platforms through one MCP endpoint, with hundreds of tools reachable through the executor. This skill has Claude draft every write and wait for the user's yes; what PaidSync itself enforces is described at https://paidsync.ai/security.
 
-## Connected platforms (13)
+## Connected platforms (14)
 
 Each platform is connected separately by the user through OAuth, using the matching `connect_*` tool. A platform must be connected before its data can be read or changed.
 
-**Ad platforms (9), read and write**
+**Ad platforms (10), read and write**
 
 | Platform | Access | Partner status |
 |---|---|---|
@@ -20,6 +20,7 @@ Each platform is connected separately by the user through OAuth, using the match
 | Reddit Ads | Full read and write | n/a |
 | Pinterest Ads | Full read and write | n/a |
 | Microsoft Ads | Full read and write | n/a |
+| X Ads | Read and write | n/a |
 | ChatGPT Ads | Connected via API key | n/a |
 
 **Analytics and tracking (4)**
@@ -96,7 +97,7 @@ Use `set_active_account` to target the right account before acting when more tha
 
 ## Safety model
 
-Every change is drafted and requires explicit user approval before it applies. PaidSync changes campaign configuration only. It never moves money or processes payments. Billing stays directly between the user and each ad platform.
+This skill tells Claude to draft every change and apply it only after the user says yes. Over MCP, PaidSync itself writes no approval card: the human check is the client's own confirmation prompt, most creates preview with `dry_run`, and destructive operations need `confirm_destructive` (details at https://paidsync.ai/security). PaidSync changes campaign configuration only. It never moves money or processes payments. Billing stays directly between the user and each ad platform.
 
 ## Getting connected
 
