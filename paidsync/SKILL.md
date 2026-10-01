@@ -1,11 +1,11 @@
 ---
 name: paidsync
-description: Manage paid media across 13 platforms (Google Ads, Meta, TikTok, LinkedIn, Snapchat, Reddit, Pinterest, Microsoft, ChatGPT Ads, plus GA4, GTM, Search Console, Merchant Center) through the PaidSync MCP server. Use when the user wants to audit ad accounts, find wasted spend, pause underperformers, adjust budgets or bids, build audiences, write ads, compare performance across platforms, or set up conversion tracking, and the PaidSync connector is available. Enforces approval-gated execution, draft every change and confirm before applying.
+description: Manage paid media across 14 platforms (Google Ads, Meta, TikTok, LinkedIn, Snapchat, Reddit, Pinterest, Microsoft, X, ChatGPT Ads, plus GA4, GTM, Search Console, Merchant Center) through the PaidSync MCP server. Use when the user wants to audit ad accounts, find wasted spend, pause underperformers, adjust budgets or bids, build audiences, write ads, compare performance across platforms, or set up conversion tracking, and the PaidSync connector is available. Enforces approval-gated execution, draft every change and confirm before applying.
 ---
 
 # PaidSync
 
-PaidSync is an MCP server that operates a user's own paid media accounts across 13 platforms from one connection. This skill guides how to use those tools well: orient before acting, audit before optimizing, and draft every change for approval before it applies.
+PaidSync is an MCP server that operates a user's own paid media accounts across 14 platforms from one connection. This skill guides how to use those tools well: orient before acting, audit before optimizing, and draft every change for approval before it applies.
 
 Use this skill only when the PaidSync connector is connected. If its tools are not available, tell the user to connect PaidSync at paidsync.ai first, then return.
 

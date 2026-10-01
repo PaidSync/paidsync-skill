@@ -2,24 +2,25 @@
 
 The full platform list, capabilities, and example prompts. Load this when you need the complete surface; the core workflow lives in SKILL.md.
 
-PaidSync runs a user's own paid media accounts across 13 platforms through one MCP endpoint, with hundreds of tools reachable through the executor. Every write is drafted and applies only after the user confirms.
+PaidSync runs a user's own paid media accounts across 14 platforms through one MCP endpoint, with hundreds of tools reachable through the executor. Every write is drafted and applies only after the user confirms.
 
-## Connected platforms (13)
+## Connected platforms (14)
 
 Each platform is connected separately by the user through OAuth, using the matching `connect_*` tool. A platform must be connected before its data can be read or changed.
 
-**Ad platforms (9), read and write**
+**Ad platforms (10), read and write**
 
 | Platform | Access | Partner status |
 |---|---|---|
 | Google Ads | Full edit, including Manager (MCC) accounts | Founder is a Google Premier Partner (top 3 percent globally) |
 | Meta Ads (Facebook and Instagram) | Full edit, including Business Manager system user tokens | Meta Business Partner |
-| LinkedIn Ads | Full read and write (most tools elsewhere are read only) | LinkedIn Marketing Partner |
+| LinkedIn Ads | Full read and write (most tools elsewhere are read only) | n/a |
 | TikTok Ads | Full edit, including advertiser switching | TikTok Marketing Partner |
 | Snapchat Ads | Full read and write | n/a |
 | Reddit Ads | Full read and write | n/a |
 | Pinterest Ads | Full read and write | n/a |
 | Microsoft Ads | Full read and write | n/a |
+| X Ads | Manages existing campaigns | n/a |
 | ChatGPT Ads | Connected via API key | n/a |
 
 **Analytics and tracking (4)**

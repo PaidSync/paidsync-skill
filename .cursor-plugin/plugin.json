@@ -1,0 +1,17 @@
+{
+  "name": "paidsync",
+  "displayName": "PaidSync.ai",
+  "version": "1.0.0",
+  "description": "Run paid ads from Cursor through PaidSync's hosted MCP server: 610+ tools across 14 platforms. Builds campaigns on Google Ads, Meta, LinkedIn and ChatGPT Ads, manages TikTok, Microsoft, Snapchat, Reddit, Pinterest and X, plus GA4, Google Tag Manager, Search Console and Merchant Center. Browser sign-in, no key to paste. Includes the PaidSync skill for auditing accounts, finding wasted spend and drafting changes for your approval.",
+  "author": {
+    "name": "PaidSync",
+    "email": "support@paidsync.ai"
+  },
+  "homepage": "https://paidsync.ai/connect/ads-to-cursor",
+  "repository": "https://github.com/PaidSync/paidsync-skill",
+  "license": "MIT",
+  "logo": "assets/logo.png",
+  "keywords": ["advertising", "google-ads", "meta-ads", "linkedin-ads", "tiktok-ads", "microsoft-ads", "chatgpt-ads", "ppc", "ga4", "google-tag-manager", "mcp"],
+  "skills": "./",
+  "mcpServers": "./mcp.json"
+}
