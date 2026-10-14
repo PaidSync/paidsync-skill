@@ -9,14 +9,24 @@ PaidSync lets an AI assistant operate a user's own paid media accounts across 14
 ```
 paidsync-skill/
 ├── .cursor-plugin/
-│   └── plugin.json    Cursor plugin settings
+│   └── plugin.json      Cursor plugin settings
+├── agents/
+│   └── paidsync-performance-marketer.md   Performance marketer agent
+├── rules/
+│   └── use-paidsync.mdc  How to use PaidSync safely
+├── skills/
+│   ├── paidsync/         Core skill (SKILL.md + REFERENCE.md)
+│   ├── paidsync-account-audit/   paidsync-wasted-spend/   paidsync-optimize/
+│   ├── paidsync-launch-campaign/ paidsync-cross-platform-report/ paidsync-workflows/
+│   ├── paidsync-google-ads/  paidsync-meta-ads/  paidsync-linkedin-ads/  paidsync-tiktok-ads/
+│   ├── paidsync-microsoft-ads/  paidsync-chatgpt-ads/  paidsync-social-platforms/
+│   └── paidsync-measurement/  paidsync-setup/  paidsync-tool-discovery/
 ├── assets/
-│   └── logo.png       Plugin logo
-├── paidsync/
-│   ├── SKILL.md       Core instructions and workflow (loaded when triggered)
-│   └── REFERENCE.md   Platform list and example prompts (loaded on demand)
-├── mcp.json           The PaidSync server Cursor connects to
-├── LICENSE            MIT
+│   └── logo.png         Plugin logo
+├── mcp.json             The PaidSync server Cursor connects to
+├── SECURITY.md
+├── CHANGELOG.md
+├── LICENSE              MIT
 └── README.md
 ```
 
@@ -26,15 +36,15 @@ This skill is a guidance layer. It assumes the PaidSync MCP server is connected 
 
 **Claude Code**
 ```
-cp -r paidsync ~/.claude/skills/paidsync
+cp -r skills/paidsync ~/.claude/skills/paidsync
 ```
 Or place it in a project at `.claude/skills/paidsync`.
 
 **claude.ai (Pro, Max, Team, Enterprise with code execution)**
-Zip the `paidsync` folder and upload it under Settings, Features, Skills.
+Zip the `skills/paidsync` folder and upload it under Settings, Features, Skills.
 
 **Claude API**
-Upload the `paidsync` folder through the Skills API (`/v1/skills`).
+Upload the `skills/paidsync` folder through the Skills API (`/v1/skills`).
 
 ## Install in Cursor
 
@@ -42,7 +52,7 @@ Upload the `paidsync` folder through the Skills API (`/v1/skills`).
 2. Cursor opens PaidSync's sign-in in your browser. Sign in, or create an account (the free plan needs no card), then connect your ad accounts.
 3. Ask something like "Find wasted spend in my Google Ads account this month."
 
-The plugin adds one server, https://mcp.paidsync.ai/mcp (see `mcp.json`), and the PaidSync skill. It has no hooks, runs no scripts, and holds no keys or tokens. Cursor asks before it runs each PaidSync tool unless you turn on auto-run. Most creates preview with a dry run first, and destructive operations need explicit confirmation. Details: https://paidsync.ai/security. Terms: https://paidsync.ai/terms. Privacy: https://paidsync.ai/privacy.
+The plugin adds one server, https://mcp.paidsync.ai/mcp (see `mcp.json`), 17 skills (platform skills for every ad channel, plus audit, wasted spend, launch, optimize, reporting, tracking and workflows), a performance marketer agent, and one rule. It has no hooks, runs no scripts, and holds no keys or tokens. Cursor asks before it runs each PaidSync tool unless you turn on auto-run. Most creates preview with a dry run first, and destructive operations need explicit confirmation. Details: https://paidsync.ai/security. Terms: https://paidsync.ai/terms. Privacy: https://paidsync.ai/privacy.
 
 ## How it works
 
