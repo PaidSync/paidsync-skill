@@ -19,6 +19,10 @@ Start with `get_linkedin_performance`. Report cost per lead and lead quality sig
 
 Targeting must be set when the campaign is created (job titles, functions, seniorities, companies, industries, locations). Look up targeting values with the LinkedIn tools from `paidsync_context` instead of typing them. A campaign created without targeting can end up in settings LinkedIn does not let you undo, so never create one without it.
 
+## Related skills
+
+`linkedin-campaign-qa` to check every live campaign against a launch checklist.
+
 ## Changing
 
 Budgets, bids, pauses and new creatives are drafted and approved first.

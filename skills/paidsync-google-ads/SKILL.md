@@ -29,6 +29,10 @@ Manager (MCC) accounts are supported. When several accounts are connected, ask w
 
 `create_search_campaign`, `create_responsive_search_ad`, `add_keywords`, `add_negative_keywords`, `update_campaign_budget`, `pause_campaign`, `enable_campaign`. For other changes, list the `google_ads` group with `paidsync_context`.
 
+## Related skills
+
+`wasted-spend-hunter`, `negative-keyword-triage`, `paidsync-keyword-research`, `paidsync-ad-copy`.
+
 ## Notes
 
 - Responsive search ads: up to 15 headlines (30 characters each) and 4 descriptions (90 characters each). Count characters before drafting.

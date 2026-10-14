@@ -1,8 +1,8 @@
 {
   "name": "paidsync",
   "displayName": "PaidSync.ai",
-  "version": "1.1.0",
-  "description": "Manage and optimize ads across Google Ads, Meta (Facebook and Instagram), LinkedIn, TikTok, Microsoft Ads, Snapchat, Reddit, Pinterest, X and ChatGPT Ads, plus GA4 and Tag Manager. Audit accounts, cut wasted spend and launch PPC campaigns, with your approval.",
+  "version": "1.2.0",
+  "description": "AI ad agent for Google Ads, Facebook and Instagram ads, LinkedIn, TikTok, Microsoft (Bing), Snapchat, Reddit, Pinterest, X and ChatGPT Ads. Audit accounts, find wasted spend, launch and optimize PPC and paid social campaigns, and report ROAS across every channel in one place, with GA4 and Tag Manager tracking built in. Every change waits for your approval.",
   "author": {
     "name": "PaidSync",
     "email": "support@paidsync.ai"
@@ -12,6 +12,8 @@
   "license": "MIT",
   "logo": "assets/logo.png",
   "keywords": [
+    "ad agent",
+    "ai agent",
     "advertising",
     "google ads",
     "facebook ads",
@@ -36,16 +38,18 @@
     "google tag manager",
     "mcp"
   ],
-  "category": "integrations",
+  "category": "sales",
   "tags": [
     "advertising",
     "marketing",
     "ppc",
+    "paid-social",
     "analytics",
     "mcp"
   ],
   "skills": "./skills/",
   "agents": "./agents/",
   "rules": "./rules/",
+  "commands": "./commands/",
   "mcpServers": "./mcp.json"
 }

@@ -9,7 +9,7 @@ Follow the core `paidsync` skill for the two rules that never change: orient wit
 
 ## Check first
 
-Before trusting any CPA or ROAS, check that conversions are recording: conversion actions on the ad platform, the matching GA4 event, and the GTM tag that fires it.
+Before trusting any CPA or ROAS, check that conversions are recording: conversion actions on the ad platform, the matching GA4 event, and the GTM tag that fires it. The `tracking-health` skill runs this check across Tag Manager, GA4, Google Ads and the Meta pixel.
 
 ## Google Analytics 4
 

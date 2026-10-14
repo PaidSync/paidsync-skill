@@ -15,6 +15,10 @@ Follow the core `paidsync` skill for the two rules that never change: orient wit
 4. Wait for approval. Apply only the approved lines (for example `update_campaign_budget`, `pause_campaign`, `enable_campaign`).
 5. Read back each change and report what landed.
 
+## Cutting waste on social platforms
+
+On Meta, LinkedIn, TikTok, Snapchat, Reddit, Pinterest and X, flag ad sets and ads with spend above the account's target CPA and no results, and audiences or placements that cost far more than the account average. Flag low-volume items as "watch", not "cut". On Google Ads and Microsoft, use `wasted-spend-hunter` and `negative-keyword-triage` instead.
+
 ## Guardrails
 
 - Move budget in steps of about 20 percent or less unless the user asks for more, so learning phases are not reset.

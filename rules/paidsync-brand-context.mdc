@@ -1,0 +1,13 @@
+---
+description: When doing advertising work with PaidSync in a folder that has a PAIDSYNC.md file, read it first and use its accounts, goals, markets and rules.
+alwaysApply: false
+---
+
+If a `PAIDSYNC.md` file exists at the workspace root:
+
+1. Read it before any PaidSync work.
+2. Set the accounts it lists on each platform before reading or changing anything, and never act on an account it does not list without asking.
+3. Judge performance against its goals (target CPA or ROAS, budget) and markets.
+4. Follow its rules on top of PaidSync's own approval step.
+
+If it does not exist and the user works with more than one brand, offer to create it with the `paidsync-brand-workspace` skill.

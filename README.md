@@ -8,27 +8,38 @@ PaidSync lets an AI assistant operate a user's own paid media accounts across 14
 
 ```
 paidsync-skill/
-├── .cursor-plugin/
-│   └── plugin.json      Cursor plugin settings
+├── .cursor-plugin/plugin.json   Cursor plugin settings
+├── mcp.json                     The PaidSync server Cursor connects to
+├── skills/                      26 skills (listed below)
 ├── agents/
-│   └── paidsync-performance-marketer.md   Performance marketer agent
+│   └── paidsync-performance-marketer.md
+├── commands/                    5 slash commands
 ├── rules/
-│   └── use-paidsync.mdc  How to use PaidSync safely
-├── skills/
-│   ├── paidsync/         Core skill (SKILL.md + REFERENCE.md)
-│   ├── paidsync-account-audit/   paidsync-wasted-spend/   paidsync-optimize/
-│   ├── paidsync-launch-campaign/ paidsync-cross-platform-report/ paidsync-workflows/
-│   ├── paidsync-google-ads/  paidsync-meta-ads/  paidsync-linkedin-ads/  paidsync-tiktok-ads/
-│   ├── paidsync-microsoft-ads/  paidsync-chatgpt-ads/  paidsync-social-platforms/
-│   └── paidsync-measurement/  paidsync-setup/  paidsync-tool-discovery/
-├── assets/
-│   └── logo.png         Plugin logo
-├── mcp.json             The PaidSync server Cursor connects to
+│   ├── use-paidsync.mdc
+│   └── paidsync-brand-context.mdc
+├── assets/logo.png
 ├── SECURITY.md
 ├── CHANGELOG.md
-├── LICENSE              MIT
+├── LICENSE                      MIT
 └── README.md
 ```
+
+## What the Cursor plugin includes
+
+**Slash commands:** `/paidsync-audit`, `/paidsync-wasted-spend`, `/paidsync-weekly-report`, `/paidsync-launch`, `/paidsync-connect`.
+
+**Agent:** `paidsync-performance-marketer`, a senior performance marketer that works in your own ad accounts and drafts every change for your approval.
+
+**Skills by job:**
+- Audit and fix: `paidsync-account-audit`, `meta-ads-audit`, `linkedin-campaign-qa`, `wasted-spend-hunter`, `negative-keyword-triage`, `creative-fatigue-scan`, `paidsync-optimize`
+- Build: `paidsync-launch-campaign`, `paidsync-keyword-research`, `paidsync-ad-copy`
+- Report and track: `paidsync-cross-platform-report`, `tracking-health`, `paidsync-measurement`, `paidsync-workflows`
+- Platforms: `paidsync-google-ads`, `paidsync-meta-ads`, `paidsync-linkedin-ads`, `paidsync-tiktok-ads`, `paidsync-microsoft-ads`, `paidsync-chatgpt-ads`, `paidsync-social-platforms` (Snapchat, Reddit, Pinterest, X)
+- Setup and help: `paidsync`, `paidsync-setup`, `paidsync-tool-discovery`, `paidsync-brand-workspace`, `paidsync-help`
+
+**Rules:** `use-paidsync` (check connections, read before writing, approval for every change) and `paidsync-brand-context` (uses a `PAIDSYNC.md` brand workspace file when the folder has one).
+
+**Brand workspaces for agencies:** keep one folder per client or brand. Run `/paidsync-connect` and the agent writes a `PAIDSYNC.md` with that brand's ad accounts, goals, markets and rules, so every session starts in the right accounts.
 
 ## Install
 
@@ -52,7 +63,7 @@ Upload the `skills/paidsync` folder through the Skills API (`/v1/skills`).
 2. Cursor opens PaidSync's sign-in in your browser. Sign in, or create an account (the free plan needs no card), then connect your ad accounts.
 3. Ask something like "Find wasted spend in my Google Ads account this month."
 
-The plugin adds one server, https://mcp.paidsync.ai/mcp (see `mcp.json`), 17 skills (platform skills for every ad channel, plus audit, wasted spend, launch, optimize, reporting, tracking and workflows), a performance marketer agent, and one rule. It has no hooks, runs no scripts, and holds no keys or tokens. Cursor asks before it runs each PaidSync tool unless you turn on auto-run. Most creates preview with a dry run first, and destructive operations need explicit confirmation. Details: https://paidsync.ai/security. Terms: https://paidsync.ai/terms. Privacy: https://paidsync.ai/privacy.
+The plugin adds one server, https://mcp.paidsync.ai/mcp (see `mcp.json`), 26 skills, 5 slash commands, a performance marketer agent and 2 rules (see above). It has no hooks, runs no scripts, and holds no keys or tokens. Cursor asks before it runs each PaidSync tool unless you turn on auto-run. Most creates preview with a dry run first, and destructive operations need explicit confirmation. Details: https://paidsync.ai/security. Terms: https://paidsync.ai/terms. Privacy: https://paidsync.ai/privacy.
 
 ## How it works
 

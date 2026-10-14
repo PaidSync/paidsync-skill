@@ -19,6 +19,10 @@ Start with `get_fb_performance`, then go down to ad set and ad level using the `
 
 Budgets, pauses, new ad sets and ads are drafted and approved first. Read the tool's inputs with `paidsync_tool_detail` for the budget unit and required fields (for example the Facebook Page an ad runs from).
 
+## Related skills
+
+`meta-ads-audit` for a full audit, `creative-fatigue-scan` for tired ads, `paidsync-ad-copy` for new copy.
+
 ## What to look at
 
 - Frequency rising with click-through falling: creative fatigue. Suggest fresh creative before cutting budget.
