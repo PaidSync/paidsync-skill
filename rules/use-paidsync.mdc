@@ -1,0 +1,12 @@
+---
+description: How to use the PaidSync MCP server for advertising work - check connections first, discover tools instead of guessing, read before writing, and get approval before any change to an ad account.
+alwaysApply: false
+---
+
+When a request involves ad campaigns, ad spend, budgets, bids, keywords, audiences, creative, conversion tracking or marketing reports, use the PaidSync MCP server and its skills.
+
+1. Call `paidsync_context` before other PaidSync tools. Work only with platforms and accounts the user has connected.
+2. Find tools through `paidsync_context` (with `include_tools`) and read inputs with `paidsync_tool_detail`. Do not guess tool names or parameters.
+3. Read and audit before proposing any change.
+4. Draft every change to an ad account (budget, bid, status, targeting, new campaign or ad) and wait for the user's explicit yes before applying it.
+5. Report only numbers returned by PaidSync in this session, with their account, date range and currency.

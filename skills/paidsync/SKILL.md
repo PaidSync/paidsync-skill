@@ -28,9 +28,8 @@ PaidSync exposes a small set of tools. The full catalog of platform actions runs
 - `paidsync_recent_runs`: review what was run recently before repeating or undoing work.
 - `paidsync_workflows_list` / `_describe` / `_run` / `_save` / `_delete`: manage repeatable multi-step workflows.
 - `connect_google_ads`, `connect_facebook_ads`, `connect_tiktok_ads`, and the other `connect_*` tools: start OAuth for a platform the user has not linked yet, one per platform.
-- `paidsync_qa_suite`: validate that connected platforms respond correctly.
 
-See [REFERENCE.md](REFERENCE.md) for the full 13-platform list, agency multi-account support, cross-platform intelligence, and example prompts per platform.
+See [REFERENCE.md](REFERENCE.md) for the full 14-platform list, agency multi-account support, cross-platform intelligence, and example prompts per platform.
 
 ## Recommended flow
 

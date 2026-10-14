@@ -1,8 +1,8 @@
 {
   "name": "paidsync",
   "displayName": "PaidSync.ai",
-  "version": "1.0.0",
-  "description": "Run paid ads from Cursor through PaidSync's hosted MCP server: 610+ tools across 14 platforms. Builds campaigns on Google Ads, Meta, LinkedIn and ChatGPT Ads, manages TikTok, Microsoft, Snapchat, Reddit, Pinterest and X, plus GA4, Google Tag Manager, Search Console and Merchant Center. Browser sign-in, no key to paste. Includes the PaidSync skill for auditing accounts, finding wasted spend and drafting changes for your approval.",
+  "version": "1.1.0",
+  "description": "Manage and optimize ads across Google Ads, Meta (Facebook and Instagram), LinkedIn, TikTok, Microsoft Ads, Snapchat, Reddit, Pinterest, X and ChatGPT Ads, plus GA4 and Tag Manager. Audit accounts, cut wasted spend and launch PPC campaigns, with your approval.",
   "author": {
     "name": "PaidSync",
     "email": "support@paidsync.ai"
@@ -11,7 +11,41 @@
   "repository": "https://github.com/PaidSync/paidsync-skill",
   "license": "MIT",
   "logo": "assets/logo.png",
-  "keywords": ["advertising", "google-ads", "meta-ads", "linkedin-ads", "tiktok-ads", "microsoft-ads", "chatgpt-ads", "ppc", "ga4", "google-tag-manager", "mcp"],
-  "skills": "./",
+  "keywords": [
+    "advertising",
+    "google ads",
+    "facebook ads",
+    "instagram ads",
+    "meta ads",
+    "linkedin ads",
+    "tiktok ads",
+    "microsoft ads",
+    "bing ads",
+    "snapchat ads",
+    "reddit ads",
+    "pinterest ads",
+    "x ads",
+    "chatgpt ads",
+    "ppc",
+    "paid social",
+    "ad spend",
+    "roas",
+    "performance marketing",
+    "campaign management",
+    "ga4",
+    "google tag manager",
+    "mcp"
+  ],
+  "category": "integrations",
+  "tags": [
+    "advertising",
+    "marketing",
+    "ppc",
+    "analytics",
+    "mcp"
+  ],
+  "skills": "./skills/",
+  "agents": "./agents/",
+  "rules": "./rules/",
   "mcpServers": "./mcp.json"
 }

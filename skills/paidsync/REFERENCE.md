@@ -10,18 +10,18 @@ Each platform is connected separately by the user through OAuth, using the match
 
 **Ad platforms (10), read and write**
 
-| Platform | Access | Partner status |
-|---|---|---|
-| Google Ads | Full edit, including Manager (MCC) accounts | Founder is a Google Premier Partner (top 3 percent globally) |
-| Meta Ads (Facebook and Instagram) | Full edit, including Business Manager system user tokens | Meta Business Partner |
-| LinkedIn Ads | Full read and write (most tools elsewhere are read only) | n/a |
-| TikTok Ads | Full edit, including advertiser switching | TikTok Marketing Partner |
-| Snapchat Ads | Full read and write | n/a |
-| Reddit Ads | Full read and write | n/a |
-| Pinterest Ads | Full read and write | n/a |
-| Microsoft Ads | Full read and write | n/a |
-| X Ads | Manages existing campaigns | n/a |
-| ChatGPT Ads | Connected via API key | n/a |
+| Platform | Access |
+|---|---|
+| Google Ads | Full edit, including Manager (MCC) accounts |
+| Meta Ads (Facebook and Instagram) | Full edit, including Business Manager system user tokens |
+| LinkedIn Ads | Full read and write |
+| TikTok Ads | Full edit, including advertiser switching |
+| Snapchat Ads | Full read and write |
+| Reddit Ads | Full read and write |
+| Pinterest Ads | Full read and write |
+| Microsoft Ads | Full read and write |
+| X Ads | Manages existing campaigns |
+| ChatGPT Ads | Connected via API key |
 
 **Analytics and tracking (4)**
 
@@ -31,8 +31,6 @@ Each platform is connected separately by the user through OAuth, using the match
 | Google Tag Manager (GTM) | Full edit: tags, triggers, variables, workspaces |
 | Google Search Console | Read access for paid and organic blended reporting |
 | Google Merchant Center | Product and feed visibility |
-
-PaidSync is the only MCP with write access to LinkedIn, TikTok, Snapchat, Reddit, Pinterest, and Microsoft Ads.
 
 ## Capabilities
 
@@ -101,7 +99,7 @@ Every change is drafted and requires explicit user approval before it applies. P
 
 ## Getting connected
 
-A free PaidSync account at paidsync.ai includes 15 tool calls per month, enough to run a first audit. The user adds the PaidSync MCP server to their AI client, then connects each ad platform through OAuth. Full setup steps for Claude, ChatGPT, Gemini, Cursor, and others are at paidsync.ai/docs.
+Create a free PaidSync account at paidsync.ai (no card needed). The user adds the PaidSync MCP server to their AI client, then connects each ad platform through OAuth. Full setup steps for Claude, ChatGPT, Gemini, Cursor, and others are at paidsync.ai/docs.
 
 ## Links
 
