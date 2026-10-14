@@ -1,0 +1,10 @@
+{
+  "name": "paidsync",
+  "version": "1.0.0",
+  "description": "Connect Grok Build to PaidSync for paid media reporting, account audits, and approved changes across ad and analytics platforms.",
+  "author": {"name": "PaidSync", "url": "https://paidsync.ai"},
+  "repository": "https://github.com/PaidSync/paidsync-skill",
+  "homepage": "https://paidsync.ai",
+  "license": "MIT",
+  "keywords": ["paidsync", "paidsync.ai", "paidsync mcp"]
+}

@@ -1,4 +1,4 @@
-# PaidSync Agent Skill and Cursor Plugin
+# PaidSync Agent Skills and Plugins
 
 An Agent Skill that teaches AI assistants such as Claude and Cursor how to use the [PaidSync](https://paidsync.ai) MCP server well: orient before acting, audit before optimizing, and draft every change for approval before it applies.
 
@@ -16,6 +16,7 @@ paidsync-skill/
 │   ├── SKILL.md       Core instructions and workflow (loaded when triggered)
 │   └── REFERENCE.md   Platform list and example prompts (loaded on demand)
 ├── mcp.json           The PaidSync server Cursor connects to
+├── grok-plugin/       Grok Build plugin: MCP connection and seven skills
 ├── LICENSE            MIT
 └── README.md
 ```
@@ -43,6 +44,17 @@ Upload the `paidsync` folder through the Skills API (`/v1/skills`).
 3. Ask something like "Find wasted spend in my Google Ads account this month."
 
 The plugin adds one server, https://mcp.paidsync.ai/mcp (see `mcp.json`), and the PaidSync skill. It has no hooks, runs no scripts, and holds no keys or tokens. Cursor asks before it runs each PaidSync tool unless you turn on auto-run. Most creates preview with a dry run first, and destructive operations need explicit confirmation. Details: https://paidsync.ai/security. Terms: https://paidsync.ai/terms. Privacy: https://paidsync.ai/privacy.
+
+## Use in Grok Build
+
+The [Grok Build plugin](grok-plugin/README.md) contains a hosted MCP connection
+and seven paid media skills. It uses OAuth in the browser and stores no
+credentials in this repository. Until the plugin is listed in Grok Build's
+marketplace, you can connect the same MCP server with:
+
+```sh
+grok mcp add --transport http paidsync https://mcp.paidsync.ai/mcp
+```
 
 ## How it works
 

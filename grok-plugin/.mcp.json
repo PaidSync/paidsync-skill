@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "paidsync": {
+      "type": "http",
+      "url": "https://mcp.paidsync.ai/mcp"
+    }
+  }
+}
