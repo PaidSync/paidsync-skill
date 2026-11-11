@@ -3,8 +3,9 @@
 ## What this plugin contains
 
 - One remote MCP server, `https://mcp.paidsync.ai/mcp` (see `mcp.json`).
-- Skills, one agent and one rule: plain Markdown instructions.
+- 26 skills, 5 slash commands, one agent and 2 rules: plain Markdown instructions.
 - No hooks, no scripts, no binaries, and no API keys or tokens.
+- One file written only on request: the `paidsync-brand-workspace` skill writes a `PAIDSYNC.md` brand file in your folder and shows it to you. It never holds tokens, passwords or keys.
 
 ## How access works
 
