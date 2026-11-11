@@ -1,0 +1,42 @@
+name: Validate plugin
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check manifest against Cursor's plugin schema, and skill names against folders
+        run: |
+          pip install --quiet jsonschema==4.26.0
+          curl -fsSL https://raw.githubusercontent.com/cursor/plugins/main/schemas/plugin.schema.json -o /tmp/plugin.schema.json
+          python3 - <<'PY'
+          import json, os, re, sys
+          import jsonschema
+          schema = json.load(open('/tmp/plugin.schema.json'))
+          manifest = json.load(open('.cursor-plugin/plugin.json'))
+          errors = list(jsonschema.Draft7Validator(schema).iter_errors(manifest))
+          for e in errors:
+              print('schema:', list(e.path), e.message)
+          for key in ('skills', 'agents', 'rules', 'commands', 'mcpServers', 'logo'):
+              if not os.path.exists(manifest[key]):
+                  errors.append(key); print('missing path:', key, manifest[key])
+          json.load(open(manifest['mcpServers']))
+          for d in sorted(os.listdir('skills')):
+              front = open(f'skills/{d}/SKILL.md').read().split('---')[1]
+              name = re.search(r'^name:\s*(.+)$', front, re.M).group(1).strip()
+              if name != d:
+                  errors.append(d); print('skill name does not match folder:', d, name)
+          print(f"{manifest['name']} {manifest['version']}: {len(errors)} errors")
+          sys.exit(1 if errors else 0)
+          PY
