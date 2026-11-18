@@ -27,10 +27,10 @@ When Claude calls PaidSync over MCP, PaidSync writes no approval card, so the hu
 .claude-plugin/marketplace.json   lets Claude Code install the plugin straight from this repo
 skills/                           the six skills, plain instructions with no scripts
 paidsync/                         the original standalone Agent Skill, for use without the plugin
-scripts/sync-plugin.mjs           copies the skills from the paidsync.ai build; not loaded by Claude
+.claude-plugin/icon.png          the plugin icon, the PaidSync knot symbol
 ```
 
-The plugin has no server connection of its own on purpose: it uses your PaidSync.ai connector. Everything it adds is in `skills/`. Read them before you install, as you should with any plugin.
+The plugin has no server connection of its own on purpose: it uses your PaidSync.ai connector. Everything it adds is in `skills/`, and it runs no code. The skills are copied from the paidsync.ai build by a maintainer script kept on this repo's `plugin-tools` branch, outside the plugin. Read them before you install, as you should with any plugin.
 
 <!-- GEN:plugin-readme:start. Written by scripts/sync-plugin.mjs, do not edit by hand. -->
 ## The skills
