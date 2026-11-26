@@ -39,7 +39,10 @@ const PLUGIN = 'paidsync';
 const START = '<!-- GEN:plugin-readme:start. Written by scripts/sync-plugin.mjs, do not edit by hand. -->';
 const END = '<!-- GEN:plugin-readme:end -->';
 if (REF.startsWith('-')) throw new Error(`refusing ref "${REF}": a ref may not start with -`);
-const gitShow = (rel) => execFileSync('git', ['-C', SRC, 'show', '--end-of-options', `${REF}:${rel}`], { maxBuffer: 64 << 20 });
+const gitShowAt = (rel) => execFileSync('git', ['-C', SRC, 'show', '--end-of-options', `${REF}:${rel}`], { maxBuffer: 64 << 20, stdio: ['ignore', 'pipe', 'ignore'] });
+// Since the 15 Nov 2026 page-source move, paidsync-ai keeps served files under web/pages/ (its web/source-map.json maps
+// .claude-plugin/* there). Read the old root path first, then the new one.
+const gitShow = (rel) => { try { return gitShowAt(rel); } catch { return gitShowAt(`web/pages/${rel}`); } };
 const sha256 = (buf) => crypto.createHash('sha256').update(buf).digest('hex');
 
 // 1. The build, checked against the digest paidsync.ai publishes for it.
