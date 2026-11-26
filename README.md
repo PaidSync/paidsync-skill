@@ -14,7 +14,7 @@ Six ads skills for Claude Code that end in done work, not a list for later: wast
 
 Or in one line, on Claude Code 2.1.275 or later: `/plugin install paidsync --marketplace PaidSync/paidsync-skill`
 
-Using Claude Code with an API key instead of a claude.ai login? Claude.ai connectors do not load then, so add the server yourself: `claude mcp add --transport http paidsync https://mcp.paidsync.ai/mcp`, then `/mcp` to sign in.
+Using Claude Code without a claude.ai login? Claude.ai connectors do not load then, so follow the setup guide at https://paidsync.ai/connect/ads-to-claude-code to add the PaidSync server and sign in.
 
 ## What can change your ad accounts
 
@@ -27,7 +27,6 @@ When Claude calls PaidSync over MCP, PaidSync writes no approval card, so the hu
 .claude-plugin/marketplace.json   lets Claude Code install the plugin straight from this repo
 skills/                           the six skills, plain instructions with no scripts
 paidsync/                         the original standalone Agent Skill, for use without the plugin
-.claude-plugin/icon.png          the plugin icon, the PaidSync knot symbol
 ```
 
 The plugin has no server connection of its own on purpose: it uses your PaidSync.ai connector. Everything it adds is in `skills/`, and it runs no code. The skills are copied from the paidsync.ai build by a maintainer script kept on this repo's `plugin-tools` branch, outside the plugin. Read them before you install, as you should with any plugin.
