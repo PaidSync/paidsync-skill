@@ -14,8 +14,6 @@ Six ads skills for Claude Code that end in done work, not a list for later: wast
 
 Or in one line, on Claude Code 2.1.275 or later: `/plugin install paidsync --marketplace PaidSync/paidsync-skill`
 
-Using Claude Code without a claude.ai login? Claude.ai connectors do not load then, so follow the setup guide at https://paidsync.ai/connect/ads-to-claude-code to add the PaidSync server and sign in.
-
 ## What can change your ad accounts
 
 When Claude calls PaidSync over MCP, PaidSync writes no approval card, so the human check is Claude's own confirmation prompt before a tool runs. Google Ads creates and most other creates are previewed with `dry_run`, destructive operations need `confirm_destructive`, and applied changes are logged, on a best-effort basis, with a 7-day before-and-after outcome. Approval cards and one-tap undo apply only in the PaidSync workspace. If you allow PaidSync tools without a prompt, no person confirms those calls. Details: https://paidsync.ai/security
