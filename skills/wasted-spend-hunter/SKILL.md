@@ -29,9 +29,10 @@ negatives applied, not a list for later.
   pdf templates."
 - The limits the user sets in stage 0 hold in every recommendation.
 - If a PaidSync reply says the request needs another plan, or that the
-  account is at its free limit or out of tasks, do what that reply says,
-  tell the user once in one plain sentence, and give the plans page
-  https://paidsync.ai/pricing. Say nothing more about plans.
+  account is at its free limit or out of tasks, stop calling PaidSync
+  tools, tell the user once in one plain sentence, and give the plans page
+  https://paidsync.ai/pricing. Pass on no other link and say nothing more
+  about plans.
 
 ## Connection
 
@@ -70,7 +71,7 @@ from Claude's connector directory first: https://claude.ai/directory/9f9cc23d-33
 3. Confirm the spend floor. $25 is a default, not a benchmark. Ask once
    per account for a different one.
 
-Then say "Ready for stage 1, find the waste." and stop.
+Then say "Ready for stage 1, find the waste.", close with "I will start the scan.", and stop.
 
 ## Stage 1. Find the waste
 
@@ -82,8 +83,10 @@ Observed
 3. Run list_negative_keywords and list_account_negative_keywords, so you
    never propose a term that is already blocked.
 4. Flag every search term with zero conversions and spend above the floor.
-5. Run get_search_terms_report with date_range: "last_90_days" and drop
-   any flagged term that converted in that window.
+5. Run get_search_terms_report with date_range: "last_90_days" and
+   sort_by: "conversions", and drop any flagged term that converted in
+   that window. The report returns at most 500 rows. If it hits that cap,
+   a flagged term it does not list is unverified: leave it out and say so.
 
 One table, ranked by spend: search term, campaign, spend, clicks,
 conversions. Close it with the total 30-day spend on the flagged terms,
@@ -125,6 +128,8 @@ Over MCP, PaidSync shows no approval card. You are the approval step.
 
 PaidSync logs applied changes, on a best-effort basis, with a 7-day before
 and after.
+
+Close with "I will review next week."
 
 ## Never
 

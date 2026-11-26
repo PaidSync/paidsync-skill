@@ -30,9 +30,10 @@ to brief next.
   Summer Promo first."
 - The limits the user sets in stage 0 hold in every recommendation.
 - If a PaidSync reply says the request needs another plan, or that the
-  account is at its free limit or out of tasks, do what that reply says,
-  tell the user once in one plain sentence, and give the plans page
-  https://paidsync.ai/pricing. Say nothing more about plans.
+  account is at its free limit or out of tasks, stop calling PaidSync
+  tools, tell the user once in one plain sentence, and give the plans page
+  https://paidsync.ai/pricing. Pass on no other link and say nothing more
+  about plans.
 
 ## Connection
 
@@ -89,7 +90,7 @@ Show an ad's picture whenever you discuss that ad.
 3. Confirm the windows. By default, the last 14 days against the 14 days
    before.
 
-Then say "Ready for stage 1, creative health." and stop.
+Then say "Ready for stage 1, creative health.", close with "I will start the scan.", and stop.
 
 ## Stage 1. Creative health
 
@@ -163,6 +164,8 @@ Over MCP, PaidSync shows no approval card. You are the approval step.
 
 PaidSync logs applied changes, on a best-effort basis, with a 7-day before
 and after.
+
+Close with "I will review next week."
 
 ## Never
 

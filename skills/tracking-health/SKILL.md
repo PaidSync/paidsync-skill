@@ -1,6 +1,6 @@
 ---
 name: tracking-health
-description: Check conversion tracking health across Google Tag Manager, GA4, Google Ads and the Meta pixel through the PaidSync MCP server, in stages that stop for the user's go-ahead. Finds duplicate, orphaned and silent conversion tags and events, and reads each tag's consent settings. It does not audit Consent Mode. Fixes are staged in a workspace after the user's yes, and publishing needs a second yes.
+description: Check conversion tracking health across Google Tag Manager, GA4, Google Ads and the Meta pixel through the PaidSync MCP server, in stages that stop for the user's go-ahead. Finds duplicate, orphaned and silent conversion tags and events, and reads each tag's consent settings. It does not audit Consent Mode. Tag Manager fixes are staged in a workspace after the user's yes and publishing needs a second yes; a GA4 key event change applies on its own yes.
 compatibility: Needs the PaidSync MCP server at https://mcp.paidsync.ai/mcp with Google Tag Manager connected. GA4, Google Ads and Meta are checked when connected.
 metadata:
   publisher: PaidSync
@@ -29,9 +29,10 @@ it. Run this first on any new account.
   Purchase tag first."
 - The limits the user sets in stage 0 hold in every recommendation.
 - If a PaidSync reply says the request needs another plan, or that the
-  account is at its free limit or out of tasks, do what that reply says,
-  tell the user once in one plain sentence, and give the plans page
-  https://paidsync.ai/pricing. Say nothing more about plans.
+  account is at its free limit or out of tasks, stop calling PaidSync
+  tools, tell the user once in one plain sentence, and give the plans page
+  https://paidsync.ai/pricing. Pass on no other link and say nothing more
+  about plans.
 
 ## Connection
 
@@ -72,7 +73,7 @@ Skip a platform that is not connected and say so.
    - The limits. Tags that must never be touched, and who must review a
      change before it is published.
 
-Then say "Ready for stage 1, the defect hunt." and stop.
+Then say "Ready for stage 1, the defect hunt.", close with "I will start the hunt.", and stop.
 
 ## Stage 1. The defect hunt
 
@@ -128,7 +129,7 @@ Every fix stays inside the limits from stage 0.
 
 Close with "I will stage <fix> first." Ask before stage 3.
 
-## Stage 3. Stage fixes, only after a yes
+## Stage 3. Stage Tag Manager fixes and apply GA4 fixes, only after a yes
 
 Over MCP, PaidSync shows no approval card. You are the approval step.
 
@@ -150,6 +151,8 @@ Close with "I will review the workspace." Ask before stage 4.
 
 PaidSync logs applied changes, on a best-effort basis, with a 7-day before
 and after.
+
+Close with "I will review next week."
 
 ## Never
 

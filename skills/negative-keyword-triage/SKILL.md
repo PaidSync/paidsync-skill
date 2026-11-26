@@ -28,9 +28,10 @@ Run weekly. Keeps search term hygiene continuous instead of quarterly.
   plumber jobs."
 - The limits the user sets in stage 0 hold in every recommendation.
 - If a PaidSync reply says the request needs another plan, or that the
-  account is at its free limit or out of tasks, do what that reply says,
-  tell the user once in one plain sentence, and give the plans page
-  https://paidsync.ai/pricing. Say nothing more about plans.
+  account is at its free limit or out of tasks, stop calling PaidSync
+  tools, tell the user once in one plain sentence, and give the plans page
+  https://paidsync.ai/pricing. Pass on no other link and say nothing more
+  about plans.
 
 ## Connection
 
@@ -67,7 +68,7 @@ from Claude's connector directory first: https://claude.ai/directory/9f9cc23d-33
    - The limits. Brand and near-brand terms, competitor names the account
      bids on on purpose, and terms that must never be blocked.
 
-Then say "Ready for stage 1, sort the terms." and stop.
+Then say "Ready for stage 1, sort the terms.", close with "I will start the triage.", and stop.
 
 ## Stage 1. Sort the terms
 
@@ -92,8 +93,10 @@ reason for its bucket.
 
 Sanity check, before you conclude
 
-A term in Block that converted moves to Watch, and say so. A harvest term
-that is already a keyword in its ad group is dropped, and say so. A term
+A term in Block that converted moves to Watch, and say so. Before
+proposing a harvest, run list_keywords for its ad group, because
+get_keyword_performance lists only the top 100. A harvest term that is
+already a keyword there is dropped, and say so. A term
 the stage 0 limits protect never goes in Block.
 
 Close with "I will approve the blocks." Ask before stage 2.
@@ -124,6 +127,8 @@ Close with "I will review the harvests." Ask before stage 3.
 
 PaidSync logs applied changes, on a best-effort basis, with a 7-day before
 and after.
+
+Close with "I will review next week."
 
 ## Never
 

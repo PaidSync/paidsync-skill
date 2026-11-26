@@ -4,7 +4,7 @@ Six ads skills for Claude Code that end in done work, not a list for later: wast
 
 ## Install
 
-1. **Connect PaidSync.ai in Claude.** Open https://claude.ai/directory/9f9cc23d-337e-4547-b740-9cb90c5d3e60, click Connect and sign in. The free plan needs no card. If you use Claude Code with your claude.ai login, the connector appears in Claude Code by itself (check with `/mcp`).
+1. **Connect PaidSync.ai in Claude.** Open https://claude.ai/directory/9f9cc23d-337e-4547-b740-9cb90c5d3e60, click Connect and sign in. If you use Claude Code with your claude.ai login, the connector appears in Claude Code by itself (check with `/mcp`).
 2. **Install the skills.** In Claude Code:
 
 ```
@@ -36,10 +36,10 @@ The plugin has no server connection of its own on purpose: it uses your PaidSync
 - `/paidsync:linkedin-campaign-qa`. QA every live LinkedIn Ads campaign against a launch checklist (results, audience size, end dates, budgets, duplicates, conversion tracking), in stages that stop for the user's go-ahead, then fix failures through the PaidSync MCP server after a dry run and the user's yes. Use before or after a LinkedIn launch, or when LinkedIn spend is not producing leads.
 - `/paidsync:meta-ads-audit`. Audit a Meta ad account in stages by composing PaidSync read tools one check at a time (account status, pixel events, structure, delivery, placements, audiences, creative with each ad's picture, recent changes), so every finding carries the numbers it came from and stops for the user's go-ahead before the next stage. Fixes run through the PaidSync MCP server only after a dry run and the user's yes. Use for a Meta or Facebook Ads audit or health check.
 - `/paidsync:negative-keyword-triage`. Weekly Google Ads search term triage in stages that stop for the user's go-ahead. Sort new terms into block, watch and harvest, then apply blocks as negatives and harvests as exact match keywords through the PaidSync MCP server, each after a dry run and its own yes. Use for a weekly search term review.
-- `/paidsync:tracking-health`. Check conversion tracking health across Google Tag Manager, GA4, Google Ads and the Meta pixel through the PaidSync MCP server, in stages that stop for the user's go-ahead. Finds duplicate, orphaned and silent conversion tags and events, and reads each tag's consent settings. It does not audit Consent Mode. Fixes are staged in a workspace after the user's yes, and publishing needs a second yes.
+- `/paidsync:tracking-health`. Check conversion tracking health across Google Tag Manager, GA4, Google Ads and the Meta pixel through the PaidSync MCP server, in stages that stop for the user's go-ahead. Finds duplicate, orphaned and silent conversion tags and events, and reads each tag's consent settings. It does not audit Consent Mode. Tag Manager fixes are staged in a workspace after the user's yes and publishing needs a second yes; a GA4 key event change applies on its own yes.
 - `/paidsync:wasted-spend-hunter`. Find Google Ads search terms that spend money with zero conversions, in stages that stop for the user's go-ahead, then block them with negative keywords through the PaidSync MCP server after a dry run and the user's yes. Use when someone asks about wasted spend, zero-conversion search terms, or which negatives to add.
 
-The skills are byte-identical to the ones in https://paidsync.ai/.claude-plugin/paidsync-1.0.4.zip (version 1.0.4, sha256 `df2d74082c6e1aea1bcb340463780ba4157b1a9af2dfd0e661a6301f22c7913f`). This copy leaves out that build's own server connection on purpose, so Claude Code uses your PaidSync.ai connector.
+The skills are byte-identical to the ones in https://paidsync.ai/.claude-plugin/paidsync-1.0.4.zip (version 1.0.4, sha256 `a271316a321415e6fdc3ed7ba24be2533f3464120c43c66019ad59494419a230`). This copy leaves out that build's own server connection on purpose, so Claude Code uses your PaidSync.ai connector.
 <!-- GEN:plugin-readme:end -->
 
 ## Standalone skill

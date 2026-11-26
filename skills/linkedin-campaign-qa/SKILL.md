@@ -26,9 +26,10 @@ metadata:
   CFO Webinar first."
 - The limits the user sets in stage 0 hold in every recommendation.
 - If a PaidSync reply says the request needs another plan, or that the
-  account is at its free limit or out of tasks, do what that reply says,
-  tell the user once in one plain sentence, and give the plans page
-  https://paidsync.ai/pricing. Say nothing more about plans.
+  account is at its free limit or out of tasks, stop calling PaidSync
+  tools, tell the user once in one plain sentence, and give the plans page
+  https://paidsync.ai/pricing. Pass on no other link and say nothing more
+  about plans.
 
 ## Connection
 
@@ -66,20 +67,22 @@ from Claude's connector directory first: https://claude.ai/directory/9f9cc23d-33
      budgets the user does not want changed.
 3. Confirm the period. By default, the last 30 days and the last 14 days.
 
-Then say "Ready for stage 1, the checklist." and stop.
+Then say "Ready for stage 1, the checklist.", close with "I will start the QA.", and stop.
 
 ## Stage 1. The checklist
 
 Observed
 
 1. Run list_linkedin_campaigns and list_linkedin_campaign_groups.
-2. Call get_linkedin_performance itself with date_range: "last_30_days",
-   and again with date_range: "last_14_days". Where the chat shows
-   PaidSync cards, it shows its card.
+2. Call get_linkedin_performance itself with campaign_ids set to the live
+   campaigns and date_range: "last_30_days", and again with date_range:
+   "last_14_days". Without campaign_ids it returns the account total only.
+   Where the chat shows PaidSync cards, it shows its card.
 3. For each live campaign run get_linkedin_campaign_targeting, then
    get_linkedin_audience_size with that targeting_criteria.
-4. Run list_linkedin_conversions to see which campaigns have conversion
-   tracking attached.
+4. Run list_linkedin_conversions with include_campaigns: true to see
+   which campaigns have conversion tracking attached. Without it, each
+   conversion lists only 5 campaigns.
 
 Check every live campaign against this list.
 
@@ -128,6 +131,8 @@ Over MCP, PaidSync shows no approval card. You are the approval step.
 
 PaidSync logs applied changes, on a best-effort basis, with a 7-day before
 and after.
+
+Close with "I will review next week."
 
 ## Never
 
