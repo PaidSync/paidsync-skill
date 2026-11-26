@@ -17,8 +17,8 @@ changes nothing unless the user approves a specific fix.
 ## Connection
 
 This skill runs on the PaidSync MCP server at https://mcp.paidsync.ai/mcp.
-If no PaidSync tools are available, stop and tell the user to add that server
-first. Setup guides are at https://paidsync.ai/connect.
+If no PaidSync tools are available, stop and tell the user to connect PaidSync.ai
+from Claude's connector directory first: https://claude.ai/directory/9f9cc23d-337e-4547-b740-9cb90c5d3e60
 
 1. Call paidsync_context first. It returns the active account and the
    connected platforms. Confirm the Meta ad account with the user.
