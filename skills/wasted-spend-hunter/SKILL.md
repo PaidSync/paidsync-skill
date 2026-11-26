@@ -85,8 +85,9 @@ Observed
 4. Flag every search term with zero conversions and spend above the floor.
 5. Run get_search_terms_report with date_range: "last_90_days" and
    sort_by: "conversions", and drop any flagged term that converted in
-   that window. The report returns at most 500 rows. If it hits that cap,
-   a flagged term it does not list is unverified: leave it out and say so.
+   that window. Follow paging.next_offset until no page is left. The
+   report returns at most 500 rows. If it hits that cap, a flagged term it
+   does not list is unverified: leave it out and say so.
 
 One table, ranked by spend: search term, campaign, spend, clicks,
 conversions. Close it with the total 30-day spend on the flagged terms,

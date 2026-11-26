@@ -95,8 +95,10 @@ Sanity check, before you conclude
 
 A term in Block that converted moves to Watch, and say so. Before
 proposing a harvest, run list_keywords for its ad group, because
-get_keyword_performance lists only the top 100. A harvest term that is
-already a keyword there is dropped, and say so. A term
+get_keyword_performance lists only the top 100. Follow paging.next_offset
+until no page is left. A harvest term that is already a keyword there is
+dropped, and say so. When the list stops at its 1,000-row cap, the term is
+unverified: leave it out and say so. A term
 the stage 0 limits protect never goes in Block.
 
 Close with "I will approve the blocks." Ask before stage 2.

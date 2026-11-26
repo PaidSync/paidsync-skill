@@ -39,7 +39,7 @@ The plugin has no server connection of its own on purpose: it uses your PaidSync
 - `/paidsync:tracking-health`. Check conversion tracking health across Google Tag Manager, GA4, Google Ads and the Meta pixel through the PaidSync MCP server, in stages that stop for the user's go-ahead. Finds duplicate, orphaned and silent conversion tags and events, and reads each tag's consent settings. It does not audit Consent Mode. Tag Manager fixes are staged in a workspace after the user's yes and publishing needs a second yes; a GA4 key event change applies on its own yes.
 - `/paidsync:wasted-spend-hunter`. Find Google Ads search terms that spend money with zero conversions, in stages that stop for the user's go-ahead, then block them with negative keywords through the PaidSync MCP server after a dry run and the user's yes. Use when someone asks about wasted spend, zero-conversion search terms, or which negatives to add.
 
-The skills are byte-identical to the ones in https://paidsync.ai/.claude-plugin/paidsync-1.0.4.zip (version 1.0.4, sha256 `a271316a321415e6fdc3ed7ba24be2533f3464120c43c66019ad59494419a230`). This copy leaves out that build's own server connection on purpose, so Claude Code uses your PaidSync.ai connector.
+The skills are byte-identical to the ones in https://paidsync.ai/.claude-plugin/paidsync-1.0.4.zip (version 1.0.4, sha256 `8ebb24caa104425888c144af2c15337e1befbff2d45d84efb916f5c12928fe83`). This copy leaves out that build's own server connection on purpose, so Claude Code uses your PaidSync.ai connector.
 <!-- GEN:plugin-readme:end -->
 
 ## Standalone skill
