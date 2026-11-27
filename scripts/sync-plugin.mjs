@@ -66,7 +66,7 @@ const SKILL_PATH = /^skills\/[a-z0-9][a-z0-9-]*(\/[A-Za-z0-9][A-Za-z0-9._-]*)+$/
 for (const r of Object.keys(built)) if (r.startsWith('skills/') && !SKILL_PATH.test(r)) throw new Error(`the build carries ${r}, which is not a plain skill file path`);
 fs.rmSync(tmp, { recursive: true, force: true });
 for (const need of ['.claude-plugin/plugin.json', 'README.md']) if (!built[need]) throw new Error(`the build has no ${need}`);
-const DESCRIPTION = 'Eleven PaidSync ads skills for Claude Code: wasted spend, negative keywords, Meta audit, creative fatigue, LinkedIn campaign QA, tracking health, waste across channels, what needs attention, weekly recap, budget pacing and competitor ads. Runs on the PaidSync.ai connector from Claude\'s connector directory.';
+const DESCRIPTION = 'Eleven PaidSync ads skills for Claude Code: wasted spend, negative keywords, Meta audit, creative fatigue, LinkedIn campaign QA, tracking health, waste across channels, what needs attention, results recap, budget pacing and competitor ads. Runs on the PaidSync.ai connector from Claude\'s connector directory.';
 
 // 2. What this repo must hold.
 const want = {};
