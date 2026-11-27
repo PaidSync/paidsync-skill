@@ -43,7 +43,7 @@ The plugin has no server connection of its own on purpose: it uses your PaidSync
 - `/paidsync:waste-across-channels`. Use when someone asks where their ad money is wasted, what is not working, which spend brings no results, or which platform wastes most. Ranks waste in one list across every connected platform against the account's own target, checks tracking first, and hands each line to the skill that fixes it.
 - `/paidsync:what-needs-attention`. Use when someone asks what needs attention, why results dropped, why CPA or cost per result rose, what changed, or whether a platform is broken. Confirms a drop against the account's own history, reads change histories and tracking, and gives the likely cause or says it cannot tell.
 
-The skills are byte-identical to the ones in https://paidsync.ai/.claude-plugin/paidsync-1.0.6.zip (version 1.0.6, sha256 `d1354f799fe9730effb7569b89517886ac895f1648943a288fd65c3b4d91c111`). This copy leaves out that build's own server connection on purpose, so Claude Code uses your PaidSync.ai connector.
+The skills are byte-identical to the ones in https://paidsync.ai/.claude-plugin/paidsync-1.0.6.zip (version 1.0.6, sha256 `e95b7e170dda37da2ca1c726440fd8a772e05d4c9300330642a464f568e9b09a`). This copy leaves out that build's own server connection on purpose, so Claude Code uses your PaidSync.ai connector.
 <!-- GEN:plugin-readme:end -->
 
 ## Standalone skill

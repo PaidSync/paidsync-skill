@@ -243,9 +243,10 @@ Close with "I will check delivery next." Ask before stage 4.
 
 What the account shows
 
-1. Results for the last 7 days: get_campaign_performance,
-   get_fb_performance and get_ms_performance for the account,
-   get_linkedin_performance with campaign_ids set to the live campaigns,
+1. Results for the last 7 days: get_campaign_performance and
+   get_ms_performance for the account, keeping only the rows of the
+   campaigns in scope, get_fb_performance and get_linkedin_performance
+   with campaign_ids set to the campaigns in scope,
    and for the other platforms get_tiktok_performance,
    get_reddit_performance, get_pinterest_performance, get_x_performance,
    get_openai_performance with scope: "ad_account" and, for each Snapchat

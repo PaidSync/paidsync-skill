@@ -215,7 +215,8 @@ Microsoft blocks. They are never bundled into one yes.
    the terms that converted in the 90-day read and the active keywords in
    every campaign or ad group it would cover (list_keywords with status:
    "ENABLED", following paging.next_offset). For a shared list, that is
-   every campaign the list is attached to. Drop any block that would stop
+   every campaign the list is attached to now or will be attached to in
+   this change. Drop any block that would stop
    a converting term or an active keyword, and say which. When a read
    stays capped after narrowing, or a keyword list stops at its 1,000-row
    cap, withhold every block it would cover and say so.
