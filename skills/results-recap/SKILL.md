@@ -1,6 +1,6 @@
 ---
 name: results-recap
-description: Write one results recap for any period, a week by default, a month or the dates the user names, across every connected ad platform, for the user or for a client, through the PaidSync MCP server, in stages that stop for the user's go-ahead. Shows each account's results against the period before and the target, the top movers with their likely cause, what PaidSync changed with its before and after, and one next step, then a Data Studio report link. Never adds conversions across platforms or money across currencies, and checks tracking before reporting a fall. Offers to save the recap as a routine for the next period, after the user's yes. Use when someone asks for a weekly or monthly report, a client report, how last week or last month went, or a Monday summary. Not for finding why one result dropped (what-needs-attention), wasted spend (waste-across-channels) or budget pacing (budget-pacing).
+description: Use when someone asks for a weekly or monthly report, a client report, how last week or month went, or a summary across platforms. Writes one recap for any period against the period before and the target, with top movers, what PaidSync changed, one next step and a Data Studio link.
 compatibility: Needs the PaidSync MCP server at https://mcp.paidsync.ai/mcp with at least one ad platform connected. Each connected platform is read.
 metadata:
   publisher: PaidSync

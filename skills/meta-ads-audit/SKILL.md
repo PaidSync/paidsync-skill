@@ -1,6 +1,6 @@
 ---
 name: meta-ads-audit
-description: Audit a Meta (Facebook and Instagram) ad account through the PaidSync MCP server by composing read tools one check at a time, in stages that stop for the user's go-ahead. Checks account status, what the pixel received beside what ads report, attribution windows side by side, structure, delivery with recent edits and learning, placements, audiences and creative with each ad's picture, then gives a Keep, Fix, Test or Check first scorecard. Fixes run only after a dry run and the user's yes. Use for a Meta or Facebook Ads audit, a health check or a new account takeover. Not for a drop in results (what-needs-attention), tired creative alone (creative-fatigue-scan), tracking setup across platforms (tracking-health), or Google Ads.
+description: Use for a Meta or Facebook Ads audit, a health check, or taking over a Meta account. Checks account status, the pixel against reported results, attribution windows, structure, delivery, placements, audiences and creative with pictures, and scores each Keep, Fix, Test or Check first.
 compatibility: Needs the PaidSync MCP server at https://mcp.paidsync.ai/mcp with a Meta ad account connected.
 metadata:
   publisher: PaidSync

@@ -1,17 +1,18 @@
 ---
 name: tracking-health
-description: Check conversion tracking through the PaidSync MCP server on whatever is connected, in stages that stop for the user's go-ahead. Covers Google Tag Manager, GA4 key events, Google Ads conversions with auto-tagging and offline uploads, Microsoft Advertising UET tags, goals and offline uploads, LinkedIn conversions, and what the Meta pixel received with its attribution windows. Opens with All clear or Needs a look, lists every expected conversion with its state, finds duplicate, orphaned and silent tags and events, and reads each tag's consent settings without auditing Consent Mode. Runs with or without Tag Manager. Tag Manager fixes are staged after a yes and publishing needs a second yes; a GA4 key event change applies on its own yes. Use when conversions look wrong or zero, platforms and GA4 disagree, after a site or tag change, or on any new account. Not for wasted spend or creative.
+description: Use when conversions are zero or look wrong, GA4 and the ad platforms disagree, to check a pixel, or to set up conversion tracking for a form, purchase, Meta pixel, UET, LinkedIn Insight Tag or GA4 key event. Checks consent first, stages Tag Manager changes, and publishes only on a second yes.
 compatibility: Needs the PaidSync MCP server at https://mcp.paidsync.ai/mcp with at least one of Google Tag Manager, GA4, Google Ads, Microsoft Advertising, LinkedIn or Meta connected. Each is checked when connected.
 metadata:
   publisher: PaidSync
   homepage: https://paidsync.ai/skills/tracking-health
-  version: "2.1"
+  version: "2.2"
 ---
 
 # Tracking Health (Tag Manager, GA4, Google Ads, Microsoft, LinkedIn, Meta)
 
 Check that every conversion that should exist is set up, receiving and
-counted, on every connected platform, before anyone judges spend on it.
+counted, on every connected platform, before anyone judges spend on it, and
+set up the ones that are missing.
 
 ## How this skill runs
 
@@ -77,7 +78,7 @@ from Claude's connector directory first: https://claude.ai/directory/9f9cc23d-33
 
 Skip a platform that is not connected and say so.
 
-## Stage 0. What is connected
+## Stage 0. What is connected, and check or set up
 
 1. From the Connection step, name which of Tag Manager, GA4, Google Ads,
    Microsoft Advertising, LinkedIn and Meta are connected. Each one not
@@ -85,15 +86,26 @@ Skip a platform that is not connected and say so.
 2. Call get_brand_conversion_goal for each connected ad account, so the
    conversions that should exist are known. Confirm the Tag Manager
    container, the GA4 property and the ad accounts with the user.
-3. This check needs no target. Ask in one message only for the no-go
+3. Pick the path from the user's words, and ask only when they point to
+   neither.
+   - Check: conversions look wrong or zero, platforms and GA4 disagree, or
+     a site or tag change happened. Stages 1 to 4.
+   - Set up: a conversion that does not exist yet, such as a contact form,
+     a purchase, the Meta pixel, Microsoft UET, the LinkedIn Insight Tag or
+     a GA4 key event. Ask what counts as the conversion (the thank-you page
+     address, the form, or the data layer event the site sends), and for a
+     purchase which data layer fields carry the value, the currency and the
+     order id. Stage 1 reads only what the new conversion touches, then
+     stages 2 to 4.
+4. This skill needs no target. Ask in one message only for the no-go
    rules, and skip them if the user already said: tags that must never be
    touched, and who must review a change before it is published. They bind
    the whole run. The user may add conversions the goal does not list.
    Confirm back in one line.
-4. Dates. Whether a tag is live or a pixel received events includes today.
+5. Dates. Whether a tag is live or a pixel received events includes today.
    A count over a period ends on the last full day, and you name it.
 
-Close with "I will start the hunt." and stop.
+Close with "I will start the hunt." or "I will plan the set-up." and stop.
 
 ## Stage 1. The defect hunt
 
@@ -101,12 +113,23 @@ What the account shows
 
 1. Tag Manager. list_gtm_accounts, list_gtm_containers and
    list_gtm_workspaces to find the container. Then get_gtm_version_live for
-   what is live, list_gtm_tags and list_gtm_triggers for the workspace, and
-   get_gtm_workspace_status for changes that were never published.
-2. GA4. list_ga4_properties, list_ga4_data_streams and
+   what is live, list_gtm_tags, list_gtm_triggers and list_gtm_variables
+   for the workspace, and get_gtm_workspace_status for changes that were
+   never published.
+2. Consent first. list_gtm_tags returns each tag's consent settings.
+   Report every conversion and marketing tag whose consent status is not
+   set, and list the consent types each tag requires. A tag that waits for
+   consent counts fewer conversions where visitors decline, which is
+   expected, not a defect, so name it before reading any count as broken.
+   This reads tag settings only. It does not audit Consent Mode: it cannot
+   see the consent banner, the default consent state it sets, or what
+   Google receives. Tell the user to check those in Tag Manager Preview or
+   Tag Assistant. Consent choices belong to the user, so propose no
+   consent change.
+3. GA4. list_ga4_properties, list_ga4_data_streams and
    list_ga4_conversion_events. Then run_ga4_report with dimensions eventName
    and date and metric eventCount for the last 28 days and today.
-3. Google Ads. list_conversion_actions and get_conversion_tracking_status
+4. Google Ads. list_conversion_actions and get_conversion_tracking_status
    with platform: "google_ads". run_gaql_query with "SELECT
    customer.auto_tagging_enabled FROM customer", and, for offline uploads,
    with "SELECT offline_conversion_upload_client_summary.client,
@@ -114,16 +137,21 @@ What the account shows
    offline_conversion_upload_client_summary.success_rate,
    offline_conversion_upload_client_summary.last_upload_date_time FROM
    offline_conversion_upload_client_summary".
-4. Microsoft Advertising. list_ms_accounts, list_ms_uet_tags and
+5. Microsoft Advertising. list_ms_accounts, list_ms_uet_tags and
    list_ms_conversion_goals. When offline goals exist,
    get_ms_offline_conversion_goal_health and
    get_ms_offline_conversion_upload_summary. UET tags belong to the
    Microsoft customer, so the list can be wider than this account.
-5. LinkedIn. list_linkedin_conversions with include_campaigns: true.
-6. Meta. list_fb_pixels, then get_fb_pixel_events for each pixel, and
+6. LinkedIn. list_linkedin_conversions with include_campaigns: true.
+7. Meta. list_fb_pixels, then get_fb_pixel_events for each pixel, and
    get_fb_attribution_breakdown for the attribution windows.
-7. ChatGPT Ads conversions cannot be checked through PaidSync yet. Say so
+8. ChatGPT Ads conversions cannot be checked through PaidSync yet. Say so
    when the user runs ChatGPT Ads.
+
+On the set-up path, read only the steps for the platforms the new
+conversion touches, then skip the hunt and the table below: say what
+already exists for it (a tag, trigger, conversion action, goal or pixel
+that would make a second one a duplicate), and go to stage 2.
 
 Hunt for these defects.
 
@@ -150,14 +178,6 @@ GA4 key events, Google Ads conversions and what the Meta pixel received go
 side by side, each with its own window. They count different things and
 are never one total.
 
-Consent settings, read only. list_gtm_tags returns each tag's consent
-settings. Report every conversion and marketing tag whose consent status
-is not set, and list the consent types each tag requires. This reads tag
-settings only. It does not audit Consent Mode: it cannot see the consent
-banner, the default consent state it sets, or what Google receives. Tell
-the user to check those in Tag Manager Preview or Tag Assistant. Consent
-choices belong to the user, so propose no consent change.
-
 Sanity check, before you conclude
 
 Two tags for one conversion may fire on different pages or triggers, so
@@ -168,21 +188,53 @@ Check first, and recommend checking it in Tag Manager Preview.
 
 Close with "I will fix <defect> first." Ask before stage 2.
 
-## Stage 2. Repair plan
+## Stage 2. Repair or set-up plan
 
 What I suggest
 
-A repair plan, ranked by the conversion each defect touches. One review
-table per approval group: item and id, current setting, proposed fix,
-evidence, what it touches in plain words, and how to undo it. Tag Manager
-changes, GA4 key event changes and publishing are separate groups. A fix
-on Microsoft, LinkedIn, Meta or offline uploads is listed as the exact
-change for the user to make in that platform. Every fix stays inside the
-limits from stage 0.
+On the check path, a repair plan, ranked by the conversion each defect
+touches. On the set-up path, the build for the new conversion, from the
+parts below that it needs.
+
+- A conversion on the platform first, where PaidSync can create it: a
+  Google Ads conversion action with create_conversion_action (type
+  WEBPAGE, and the category the user confirms, such as SUBMIT_LEAD_FORM
+  or PURCHASE); a Microsoft UET tag with add_ms_uet_tags when none exists
+  for this customer, and a goal pointed at it with add_ms_conversion_goals,
+  the goal category the user confirms and goal_scope: "Account" (left out,
+  Microsoft makes the goal customer-wide for good), shown in the preview; a
+  LinkedIn conversion rule with
+  create_linkedin_conversion. A Meta pixel cannot be created through
+  PaidSync: when list_fb_pixels returns none, the user creates it in Meta
+  Events Manager first.
+- Then the Tag Manager parts, in a workspace of their own made with
+  create_gtm_workspace, never the Default Workspace: the trigger
+  (create_gtm_trigger, a form submission, the thank-you page view or the
+  site's own data layer event), the variables a purchase needs
+  (create_gtm_variable for value, currency and order id, and
+  enable_gtm_builtin_variables for the built-in ones a trigger uses), and
+  the tags (create_gtm_tag): a GA4 event tag, a Google Ads conversion tag
+  with the conversion id and label read with get_conversion_tag_snippet
+  once the conversion action exists, and a Conversion
+  Linker when the container has none. For Microsoft, LinkedIn and Meta,
+  use the tag the platform itself provides (the UET tracking script
+  add_ms_uet_tags returns, the Insight Tag code from LinkedIn Campaign
+  Manager, the pixel code from Meta Events Manager), never code you write.
+- A GA4 key event with create_ga4_conversion_event, only once its event
+  is already arriving in run_ga4_report. A new event is marked after its
+  tag is published and the first events arrive.
+
+One review table per approval group: item and id, current setting,
+proposed fix or new item, evidence, what it touches in plain words, and
+how to undo it. Each platform's conversion, the Tag Manager changes, the
+GA4 key event and publishing are separate groups. A fix on Microsoft,
+LinkedIn, Meta or offline uploads that PaidSync cannot make is listed as
+the exact change for the user to make in that platform. Every fix stays
+inside the limits from stage 0.
 
 Close with "I will stage <fix> first." Ask before stage 3.
 
-## Stage 3. Stage Tag Manager fixes and apply GA4 fixes, only after a yes
+## Stage 3. Stage Tag Manager changes and apply the rest, only after a yes
 
 For the changes this skill makes, PaidSync asks for no approval of its own
 over MCP, so you are the approval step. If a PaidSync reply asks for
@@ -194,11 +246,19 @@ Approval groups never merge. The user may approve all or some rows inside
 one group. A row changed after the yes needs a new yes. Silence is not a
 yes.
 
-1. Stage fixes in a Tag Manager workspace. create_gtm_tag accepts
+1. Platform conversions, each as its own group: create_conversion_action,
+   add_ms_uet_tags, add_ms_conversion_goals and create_linkedin_conversion
+   each accept dry_run: true, so call each with dry_run: true first and
+   show the preview. Ask, wait, then repeat with dry_run: false.
+2. Stage fixes in a Tag Manager workspace. create_gtm_tag accepts
    dry_run: true, so preview first. update_gtm_tag and
    create_ga4_conversion_event have no dry run and apply on the first call,
    so show the exact arguments and wait for a yes before calling them.
-2. After applying, read each item back and show what the platform accepted and
+   create_gtm_workspace, create_gtm_trigger, create_gtm_variable and
+   enable_gtm_builtin_variables also change the workspace on the first
+   call, never the live site, so show the exact arguments of each and call
+   them only after the yes.
+3. After applying, read each item back and show what the platform accepted and
 what it rejected. Never retry a partial failure blind.
 
 Close with "I will review the workspace." Ask before stage 4.
@@ -217,8 +277,10 @@ Close with "I will review the workspace." Ask before stage 4.
 
 After publishing, say what to watch and when. Offer a check in 7 days that
 reads the same sources again (run_ga4_report, get_fb_pixel_events and the
-ad platforms' conversion reads) to show whether the fixed events arrive.
-It says "too early" or "cannot tell" when the days or volume are too few.
+ad platforms' conversion reads) to show whether the fixed or new events
+arrive. For a new GA4 event it then offers to mark it as a key event, after
+its own yes. It says "too early" or "cannot tell" when the days or volume
+are too few.
 
 Close with "I will check in 7 days."
 
@@ -228,4 +290,8 @@ Close with "I will check in 7 days."
 - Never delete tags. Pause one with update_gtm_tag and paused: true, after
   a yes. Deletion is a human decision.
 - Never change a tag's consent settings.
+- Never write tracking code yourself. Use the tag type Tag Manager offers
+  or the code the platform provides.
+- Never create a second conversion for one that already exists. Fix the
+  one that exists.
 - Never touch a tag the user listed as off limits in stage 0.

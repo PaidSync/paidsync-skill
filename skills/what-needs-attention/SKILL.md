@@ -1,6 +1,6 @@
 ---
 name: what-needs-attention
-description: Find what needs attention in connected ad accounts, or why results dropped, on any platform, through the PaidSync MCP server, in stages that stop for the user's go-ahead. Confirms a drop against the account's own history, splits traffic from conversion rate, reads impression share lost to budget against rank, device and conversion action, then each platform's change history and PaidSync's own change log around the day it started, checking tracking, a platform-wide problem and changes by unknown users on the way. Gives the likely cause with its evidence, or says it cannot tell. Turns back on what was paused by mistake after a dry run and the user's yes, and hands every other fix to the skill that owns it. Use when someone asks what needs attention, why results dropped, why cost per result rose, or what changed. Not for a results report (results-recap), wasted spend (waste-across-channels), budgets (budget-pacing), or recommendations and auto-apply.
+description: Use when someone asks what needs attention, why results dropped, why CPA or cost per result rose, what changed, or whether a platform is broken. Confirms a drop against the account's own history, reads change histories and tracking, and gives the likely cause or says it cannot tell.
 compatibility: Needs the PaidSync MCP server at https://mcp.paidsync.ai/mcp with at least one of Google Ads, Microsoft Advertising, Meta or LinkedIn connected. Each is read when connected.
 metadata:
   publisher: PaidSync
@@ -278,12 +278,12 @@ from stage 0.
   its own group for each platform.
 - Every other fix goes to the skill that owns it, named on its row: a
   budget-capped campaign to budget-pacing, search terms to
-  wasted-spend-hunter, Meta creative that slipped to creative-fatigue-scan,
-  a Meta structure or delivery problem to meta-ads-audit, a LinkedIn
-  campaign to linkedin-campaign-qa, and tracking to tracking-health.
-- A Microsoft Advertising campaign to turn back on, a disapproved ad or a
-  billing hold is listed as the exact change for the user to make in that
-  platform.
+  search-terms-cleanup, Meta creative that slipped to creative-fatigue-scan,
+  a Meta structure problem to meta-ads-audit, a campaign that stopped
+  running, was disapproved or is held for billing to campaign-check, and
+  tracking to tracking-health.
+- A Microsoft Advertising campaign to turn back on is listed as the exact
+  change for the user to make in Microsoft Advertising.
 
 Close with "I will approve <fix> first." Ask before stage 5.
 

@@ -1,11 +1,11 @@
 ---
 name: creative-fatigue-scan
-description: A trend screen for Meta ads through the PaidSync MCP server, in stages that stop for the user's go-ahead, with each ad's picture beside its numbers. Compares each ad's last 14 days with the 14 before on frequency, click rate, cost per thousand impressions and cost per result, and reads each ad as Holding, Slipping, Needs a look or Too little data. Reads Meta's own creative fatigue flag and its quality, engagement and conversion rankings first, and uses PaidSync's labelled rule of thumb only where Meta returns none. Proposes replacements and briefs, and pauses only where another ad keeps the ad set running, after a dry run and the user's yes. Use when Meta results are sliding, someone asks which ads are tired or what creative to brief next. Not for a full Meta audit (meta-ads-audit) or tracking problems (tracking-health).
+description: Use when someone asks which Meta ads are tired, about creative fatigue, why Meta results slide as frequency climbs, or what creative to brief next. Reads Meta's own fatigue flag and rankings first, compares 14 days with the 14 before, shows each ad's picture, and pauses only after a yes.
 compatibility: Needs the PaidSync MCP server at https://mcp.paidsync.ai/mcp with a Meta ad account connected.
 metadata:
   publisher: PaidSync
   homepage: https://paidsync.ai/skills/creative-fatigue-scan
-  version: "2.2"
+  version: "2.3"
 ---
 
 # Creative Fatigue Scan (Meta Ads)
@@ -124,7 +124,10 @@ What the account shows
    or thumbnail_url from list_fb_creatives, paging with after. For a video
    whose picture is small, use get_fb_creative_hd_thumbnail. For a
    creative with only an image_hash, use get_fb_ad_image_permalink.
-5. Meta's own signal comes first. When Meta flags an ad as fatigued, or
+5. Meta's own signal comes first. Each ad's metaCreativeFatigue is true
+   when Meta's recommendations flag it as fatigued, false when they do
+   not, and null when Meta had more recommendations than one read takes,
+   which means unknown, never "not fatigued". When Meta flags an ad, or
    ranks it below average, use that and name it. A ranking reads "Meta
    does not report this yet" until an ad has enough impressions. Only when
    Meta returns no flag and no ranking for an ad, label its reading

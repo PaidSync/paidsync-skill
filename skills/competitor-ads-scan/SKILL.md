@@ -1,6 +1,6 @@
 ---
 name: competitor-ads-scan
-description: Scan what named competitors run now in Meta's Ad Library through the PaidSync MCP server, in stages that stop for the user's go-ahead. Finds each competitor's Facebook Page, reads its ads with start dates and links, groups the messages into the themes seen most and those not seen in the ads retrieved, checks each against the brand's own truths, and ends in creative briefs in the brand's own words. Says plainly what the library covers. Meta returns commercial ads only when they reached the EU countries searched, so the scan cannot prove a theme is unused, and Google, LinkedIn, TikTok and Microsoft ads are not read, nor Google's auction insights. Offers a monthly saved scan after the user's yes. Use when someone asks what competitors are running, for competitor ad research, or for new ad angles. Not for the brand's own tired ads (creative-fatigue-scan) or a Meta account audit (meta-ads-audit).
+description: Use when someone asks what competitors are running, for competitor ads, Ad Library research or new ad angles. Reads named competitors' ads in Meta's Ad Library, groups their themes, checks each against the brand's own truths, and ends in briefs. Says what the library cannot show.
 compatibility: Needs the PaidSync MCP server at https://mcp.paidsync.ai/mcp with Meta connected, because the Ad Library is read through the connected Meta login. A brand's own Meta ad account is read when connected.
 metadata:
   publisher: PaidSync

@@ -1,6 +1,6 @@
 ---
 name: waste-across-channels
-description: Rank wasted ad money in one list across Google Ads and Microsoft Advertising search terms, Meta ads that spent with no results, LinkedIn campaigns with no leads, and TikTok, Snapchat, Reddit and Pinterest campaigns with no conversions, through the PaidSync MCP server, in stages that stop for the user's go-ahead. Judges every line against the account's own target cost per result, checks tracking before calling anything waste, lists X and ChatGPT Ads spend as not judged, and hands each line to the skill that fixes it. Use when someone asks where their ad money is wasted, which platform wastes the most, or for a monthly waste review. Not for blocking Google search terms (wasted-spend-hunter), a full Meta audit (meta-ads-audit), a results drop (what-needs-attention) or a tracking problem (tracking-health).
+description: Use when someone asks where their ad money is wasted, what is not working, which spend brings no results, or which platform wastes most. Ranks waste in one list across every connected platform against the account's own target, checks tracking first, and hands each line to the skill that fixes it.
 compatibility: Needs the PaidSync MCP server at https://mcp.paidsync.ai/mcp with at least one of Google Ads, Microsoft Advertising, Meta or LinkedIn connected. Each is checked when connected.
 metadata:
   publisher: PaidSync
@@ -218,14 +218,15 @@ its rows, and the Watch money beside it.
 Each line goes to one skill.
 
 - A Google Ads or Microsoft Advertising search term goes to
-  wasted-spend-hunter, which runs each engine as its own approval.
+  search-terms-cleanup, which runs each engine as its own approval.
 - A Meta ad goes to creative-fatigue-scan, which reads its trend and
   pauses only where another ad keeps the ad set running. A whole Meta ad
   set or campaign with no results goes to meta-ads-audit.
-- A LinkedIn campaign goes to linkedin-campaign-qa.
-- A TikTok, Snapchat, Reddit or Pinterest campaign has no skill of its
-  own yet. List the exact change (a lower budget or a pause) for the user
-  to make in that platform.
+- A LinkedIn campaign goes to campaign-check, which checks it against the
+  launch checklist and can pause it.
+- A TikTok, Snapchat, Reddit or Pinterest campaign: a lower budget goes to
+  budget-pacing. A pause is listed as the exact change for the user to
+  make in that platform.
 - Any line called Check first on tracking goes to tracking-health first.
 
 Close with "I will start with <the skill for the top line>." Ask which
