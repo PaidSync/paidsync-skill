@@ -117,25 +117,29 @@ Close with "I will confirm the drop." and stop.
 
 What the account shows
 
-1. Across platforms, get_cross_platform_anomalies with lookback_days set
-   to the recent window and baseline_days: 28, and get_portfolio_health
-   with date_range set to the recent window. Both judge against the
-   account's own history. When the drop is in conversions, run the
-   anomalies read again with exclude_recent_days set to the conversion
-   lag, and show both.
+1. Across platforms, get_portfolio_health with date_range set to the
+   recent window as "YYYY-MM-DD to YYYY-MM-DD". It compares it with the
+   same number of days just before. When the recent window ends on the last
+   full day, also run get_cross_platform_anomalies with lookback_days set
+   to its length and baseline_days: 28. It always reads the newest synced
+   days, so skip it for an older window. When the drop is in conversions,
+   run it again with exclude_recent_days set to the conversion lag, and
+   show both.
 2. Google Ads. Call get_performance_summary itself for the recent window
    and again for the window before it. Where the chat shows PaidSync cards,
-   it shows its card. When the window is 7 days, add detect_anomalies.
+   it shows its card. When the recent window is the last 7 full days, add
+   detect_anomalies, which reads only those days.
 3. Meta. Call get_fb_performance itself with start_date and end_date for
    both windows.
 4. LinkedIn. Call get_linkedin_performance itself with campaign_ids set to
    the live campaigns, for both windows.
 5. Microsoft Advertising. get_ms_performance with start_date and end_date
    for both windows.
-6. The first day. get_daily_campaign_rows for Google Ads and Meta, and
-   get_daily_performance_rows for the other platforms, from 14 days before
-   the recent window to its end. Find the first day the metric left its
-   normal range.
+6. The first day and the normal range. get_daily_campaign_rows for Google
+   Ads and Meta, and get_daily_performance_rows for the other platforms,
+   from the start of the 28-day baseline to the end of the recent window,
+   following next_cursor or next_offset. The baseline days give the normal
+   range; find the first day the metric left it.
 
 For each thing that moved, give one reading: Real (outside the account's
 own range, on enough volume), Too little data (counts too small to tell),
@@ -161,8 +165,10 @@ Work only on the platform and dates that moved, from stage 1.
    clicks converting less.
 2. Impression share, Google Ads Search. get_performance_summary returns
    Search impression share and the share lost to budget and to rank for
-   each window, and get_impression_share_analysis with days set to the
-   recent window gives them by campaign. Rising loss to budget points to
+   each window. When the recent window ends on the last full day,
+   get_impression_share_analysis with days set to its length gives them by
+   campaign; it counts back from the last full day, so skip it for an
+   older window. Rising loss to budget points to
    budget. Rising loss to rank points to bids, ad quality or new
    competition. Shopping, Performance Max, Demand Gen and Video carry no
    impression share here, and you say so.
@@ -192,15 +198,20 @@ What the account shows
 
 1. Each platform's own change history, from 7 days before the first day to
    the end of the recent window. get_change_history for Google Ads, with
-   days covering that span, following next_page_token.
+   days covering that span, following next_page_token. Google keeps change
+   history for 30 days, so when the first day is older, say its changes
+   cannot be read there.
    get_fb_account_activity for Meta, with since and until.
    get_ms_change_history for Microsoft, with start_date and end_date; a
    change can take about an hour to appear there. PaidSync does not read
    LinkedIn's change history, so ask the user what changed in Campaign
    Manager.
 2. PaidSync's own changes. get_operator_change_log for each account with
-   window_days: 7. It shows what PaidSync changed, the old and new values,
-   and the account's spend and conversions before and after. A before and
+   window_days: 7 and limit: 100. It lists the newest changes first, so
+   keep those dated in the span above. When all 100 rows are newer than the
+   span, say older changes were not reached. Each row shows what PaidSync
+   changed, the old and new values, and the account's spend and
+   conversions before and after. A before and
    after is not proof the change caused the drop.
 3. Tracking, on the way, with the level each reached. Google Ads and Meta:
    get_conversion_tracking_status with platform: "google_ads" or

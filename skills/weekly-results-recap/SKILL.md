@@ -123,21 +123,28 @@ What the account shows
    shows where the chat shows PaidSync cards: get_performance_summary for
    Google Ads, get_fb_performance for Meta, and get_linkedin_performance
    with campaign_ids for LinkedIn. get_ms_performance for Microsoft.
-4. Movers. get_campaign_performance for Google Ads and
-   get_fb_adset_performance for Meta, for both weeks. Rank campaigns and
-   ad sets by the change in results and in spend: at most 3 up and 3
-   down.
+4. Movers. get_campaign_performance for Google Ads,
+   get_fb_adset_performance for Meta, get_ms_performance for Microsoft and
+   get_linkedin_performance with campaign_ids for LinkedIn, for both weeks.
+   Rank campaigns and ad sets by the change in results and in spend: at
+   most 3 up and 3 down.
 5. Likely cause of each mover. get_change_history for Google Ads,
    get_fb_account_activity for Meta and get_ms_change_history for
    Microsoft, for both weeks, matched against each mover. A cause is
    "likely" only when a change touches that mover in those days. Otherwise
    write "no change in the account explains it".
 6. What PaidSync changed. get_operator_change_log for the accounts with
-   window_days: 7: each change in the two weeks, its old and new value,
-   and the account's spend and conversions before and after.
+   window_days: 7 and limit: 100. It lists the newest changes first; keep
+   those dated inside the two weeks. When all 100 rows are newer than the
+   two weeks, say older changes were not reached. Each row gives its old
+   and new value, and the account's spend and conversions before and
+   after.
 7. Tracking. When a platform shows spend and zero results for the week,
-   read get_conversion_tracking_status for Google Ads or Meta before
-   reporting a fall, and name the level it reached.
+   check its tracking before reporting a fall, and name the level it
+   reached: get_conversion_tracking_status for Google Ads or Meta,
+   list_ms_conversion_goals for Microsoft, list_linkedin_conversions with
+   include_campaigns: true for LinkedIn. A goal that exists but cannot be
+   shown to receive is set up only, and the fall is Check first.
 
 Close with "I will write the recap." Ask before stage 2.
 
@@ -150,10 +157,11 @@ names, ids and internal notes.
 
 1. One headline sentence with the number that matters most this week.
 2. The coverage line.
-3. Results: one row per platform with spend, results, cost per result,
-   the change against the week before, and the gap to target. Each in its
-   own currency, each platform's result named (purchases, leads), and no
-   total of results across platforms.
+3. Results: one row per account with its platform, spend, results, cost
+   per result, the change against the week before, and the gap to its own
+   target. Each in its own currency, each account's result named
+   (purchases, leads), and no total of results across accounts or
+   platforms.
 4. Top movers: up to 3 up and 3 down, each with its likely cause and the
    change that points to it.
 5. What PaidSync changed: each change with its date, old and new value,
@@ -169,6 +177,8 @@ names, ids and internal notes.
    "overview" and account_ids set to the accounts in the recap. Where the
    chat shows PaidSync cards, it shows its card with one button. The link
    opens a copy in the user's own Data Studio, where they pick the dates.
+   It is for the user, not the client: in a client recap, say the user
+   shares the report's own link from Data Studio afterwards.
 
 Close with "I will save this weekly." Ask before stage 3.
 

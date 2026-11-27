@@ -107,23 +107,28 @@ Close with "I will find their Pages." and stop.
 
 What the account shows
 
-1. For each competitor, call search_ad_library with search_terms set to
-   its name and ad_reached_countries set to the countries from stage 0.
-   Read the Pages in the reply. Names collide, so show each Page's name and
-   page_id and confirm the right Page with the user before going on.
+1. When the user gave a competitor's Facebook Page link or page_id, use
+   it. Otherwise call search_ad_library with search_terms set to its name
+   and ad_reached_countries set to the countries from stage 0. That
+   searches ad text, not Page names, so it can return other advertisers or
+   nothing. Show each Page in the reply with its name and page_id, and
+   confirm the right Page with the user before going on. When no Page
+   matches, the result for that competitor is inconclusive (call Check
+   first), and you ask for its Page link.
 2. Then call search_ad_library with search_page_ids set to the confirmed
    Pages, up to 10 in one call, the same countries and limit: 25. Follow
    next_page_token until no page is left or 100 ads per competitor, and say
    when that cap was reached.
 3. Keep each ad's Page, its first text, its link title, its start and stop
-   dates and its ad_library_url. Texts come back shortened, and the
-   ad_library_url opens the full ad. The library returns no picture, so
-   link each ad instead and say so.
+   dates and its ad_library_url, or advertiser_library_url when the ad has
+   none. Texts come back shortened, and the link opens the full ad. The
+   library returns no picture, so link each ad instead and say so.
 4. When the brand has its own Facebook Page, run the same search for it,
    so the scan shows what the brand already says.
-5. Each reply carries a meta_library_search_url. It opens Meta's own Ad
-   Library page for that search, which covers every country. Give it to the
-   user for what the API leaves out.
+5. When a reply carries a meta_library_search_url, give it to the user.
+   It opens the same search on Meta's own Ad Library page, where the user
+   can change the country to see ads the API leaves out. When it is
+   missing, say so.
 
 One table per competitor: Page, ads found, running now, long-running, the
 oldest start date still running, and each running ad's link.
@@ -132,7 +137,8 @@ Sanity check, before you conclude
 
 When a competitor's Page shows no ads, say whether that may be the
 countries searched rather than the Page, and give its
-meta_library_search_url. The call for that competitor is Check first.
+meta_library_search_url when there is one. The call for that competitor is
+Check first.
 
 Close with "I will group the themes." Ask before stage 2.
 

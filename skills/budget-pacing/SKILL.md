@@ -149,6 +149,10 @@ One table per account: agreed budget, spend so far, days left, daily
 budgets switched on now, projected month end, the gap in money and as a
 share of the budget, and a reading: On track, Over or Under.
 
+When nothing is switched on in an account, its month ends at spend so far.
+Say so, and propose no move for it: turning a campaign on is the user's
+choice, and this skill never does it.
+
 Close with "I will check each campaign." Ask before stage 2.
 
 ## Stage 2. Capped or out of demand

@@ -103,9 +103,11 @@ Skip a platform that is not connected and say so.
      are never called waste, such as awareness or retargeting the user
      runs on purpose. They bind the whole run.
    Confirm both back in one line.
-4. Dates. The same 30 days on every platform, ending on the last full day,
-   never today, passed as a start and an end date. Name them. The
-   conversion lag is 7 days unless the user gives another.
+4. Dates. The last 30 days, ending on the last full day, never today, or
+   the 30 days the user names. The same dates on every platform, passed as
+   a start and an end date, and you name them. The conversion lag is 7 days
+   unless the user gives another. The lag cutoff is that many days before
+   the end date.
 
 This skill changes no ad account. It ranks the waste, and each fix runs in
 the skill named for it.
@@ -121,12 +123,19 @@ What the account shows
    "google_ads". Microsoft: list_ms_conversion_goals. Meta: list_fb_pixels,
    then get_fb_pixel_events for each pixel. LinkedIn:
    list_linkedin_conversions with include_campaigns: true.
-2. Google Ads. Call get_wasted_spend_report itself with days: 30. Where
-   the chat shows PaidSync cards, it shows its card. Then run
+2. Google Ads. When the dates are the last 30 days, call
+   get_wasted_spend_report itself with days: 30. Where the chat shows
+   PaidSync cards, it shows its card. It cannot take other dates, so for a
+   window the user named, skip it and say no card will show. Then run
    get_search_terms_report for the same dates with sort_by: "cost",
-   following paging.next_offset until no page is left. The report's
-   keyword, Quality Score and ad lines overlap the search terms, so only
-   search terms count in this list, and you say so.
+   following paging.next_offset until no page is left. When it says it may
+   be truncated, run it again for each campaign with campaign_id. The
+   report's keyword, Quality Score and ad lines overlap the search terms,
+   so only search terms count in this list, and you say so. Run
+   get_campaign_performance for the same dates. Say what share of Search
+   spend and clicks the terms cover, because Google hides some terms.
+   Campaigns with no search terms (Performance Max, Demand Gen, Video,
+   Display) are listed as not checked, with their spend.
 3. Microsoft Advertising. get_ms_search_query_performance with the same
    start_date and end_date and aggregation: "Summary". When totals_complete
    is false, say how many rows were withheld.
@@ -142,20 +151,23 @@ What the account shows
    the same dates with platforms set to those platforms, for their spend
    only. Each is "not checked" in the result, because this skill does not
    judge waste there yet.
+7. The lag. Run the search term, ad and campaign reads from steps 2 to 5
+   a second time, from the same start date to the lag cutoff, so each
+   line's earlier spend is known. Spend after the cutoff is shown but
+   never judged, because its conversions may still arrive.
 
 Judge each line against its own platform's target. Expected results are
-its spend divided by the target cost per result.
+its spend up to the lag cutoff, divided by the target cost per result.
 
-- Zero results and expected results of 3 or more, with most of its clicks
-  older than the conversion lag, is waste (call Fix). At that point zero
-  is unlikely to be chance.
-- From 1 to 3, or with most clicks inside the lag, it is Watch (call
-  Keep), with a date to look again. Watch money is listed apart and never
-  added into the waste.
+- Zero results over the whole window and expected results of 3 or more is
+  waste (call Fix). At that point zero is unlikely to be chance.
+- From 1 to 3 it is Watch (call Keep), with a date to look again. Watch
+  money is listed apart and never added into the waste.
 - Under 1, the sample is too small to judge (call Keep).
 - A search term that is plainly the wrong intent, such as jobs, free, or a
   product the business does not sell, is waste at any spend, with the
-  reason.
+  reason. When similar terms converted in the same window, it is Check
+  first instead.
 - A Meta ad set built for reach, video views or any result other than the
   one named, and a LinkedIn campaign built for awareness, are left out of
   the waste and named, because zero results is what they were built for.
