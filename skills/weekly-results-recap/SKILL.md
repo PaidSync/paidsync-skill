@@ -135,8 +135,8 @@ What the account shows
    write "no change in the account explains it".
 6. What PaidSync changed. get_operator_change_log for the accounts with
    window_days: 7 and limit: 100. It lists the newest changes first; keep
-   those dated inside the two weeks. When all 100 rows are newer than the
-   two weeks, say older changes were not reached. Each row gives its old
+   those dated inside the two weeks. When 100 rows come back, say older
+   changes in the two weeks may be missing. Each row gives its old
    and new value, and the account's spend and conversions before and
    after.
 7. Tracking. When a platform shows spend and zero results for the week,

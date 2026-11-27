@@ -121,8 +121,9 @@ What the account shows
    recent window as "YYYY-MM-DD to YYYY-MM-DD". It compares it with the
    same number of days just before. When the recent window ends on the last
    full day, also run get_cross_platform_anomalies with lookback_days set
-   to its length and baseline_days: 28. It always reads the newest synced
-   days, so skip it for an older window. When the drop is in conversions,
+   to its length, baseline_days: 28 and exclude_recent_days: 0, and use it
+   only when the dates it returns match the recent window. It always reads
+   the newest synced days, so skip it for an older window. When the drop is in conversions,
    run it again with exclude_recent_days set to the conversion lag, and
    show both.
 2. Google Ads. Call get_performance_summary itself for the recent window
@@ -208,8 +209,8 @@ What the account shows
    Manager.
 2. PaidSync's own changes. get_operator_change_log for each account with
    window_days: 7 and limit: 100. It lists the newest changes first, so
-   keep those dated in the span above. When all 100 rows are newer than the
-   span, say older changes were not reached. Each row shows what PaidSync
+   keep those dated in the span above. When 100 rows come back, say older
+   changes in the span may be missing. Each row shows what PaidSync
    changed, the old and new values, and the account's spend and
    conversions before and after. A before and
    after is not proof the change caused the drop.

@@ -107,8 +107,10 @@ Close with "I will find their Pages." and stop.
 
 What the account shows
 
-1. When the user gave a competitor's Facebook Page link or page_id, use
-   it. Otherwise call search_ad_library with search_terms set to its name
+1. When the user gave a competitor's page_id, or a link that carries it
+   (a Page link with a number in it, or an Ad Library link with
+   view_all_page_id), use that number. A link with no number in it cannot
+   be searched, so ask for the Page's Ad Library link. Otherwise call search_ad_library with search_terms set to its name
    and ad_reached_countries set to the countries from stage 0. That
    searches ad text, not Page names, so it can return other advertisers or
    nothing. Show each Page in the reply with its name and page_id, and
@@ -120,8 +122,9 @@ What the account shows
    next_page_token until no page is left or 100 ads per competitor, and say
    when that cap was reached.
 3. Keep each ad's Page, its first text, its link title, its start and stop
-   dates and its ad_library_url, or advertiser_library_url when the ad has
-   none. Texts come back shortened, and the link opens the full ad. The
+   dates and its ad_library_url. Texts come back shortened, and that link
+   opens the full ad. When an ad has none, give its advertiser_library_url
+   and say it opens the advertiser's ads, not that one ad. The
    library returns no picture, so link each ad instead and say so.
 4. When the brand has its own Facebook Page, run the same search for it,
    so the scan shows what the brand already says.
