@@ -1,6 +1,6 @@
 ---
 name: waste-across-channels
-description: Rank wasted ad money in one list across Google Ads and Microsoft Advertising search terms, Meta ads that spent with no results and LinkedIn campaigns with no leads, through the PaidSync MCP server, in stages that stop for the user's go-ahead. Judges every line against the account's own target cost per result, checks tracking on each platform before calling anything waste, lists every other connected platform as not checked with its spend, and hands each line to the skill that fixes it. Use when someone asks where their ad money goes to waste across channels, which platform wastes the most, or for a monthly waste review across platforms. Not for blocking Google search terms (wasted-spend-hunter), a full Meta audit (meta-ads-audit), a results drop (what-needs-attention) or a tracking problem (tracking-health).
+description: Rank wasted ad money in one list across Google Ads and Microsoft Advertising search terms, Meta ads that spent with no results, LinkedIn campaigns with no leads, and TikTok, Snapchat, Reddit and Pinterest campaigns with no conversions, through the PaidSync MCP server, in stages that stop for the user's go-ahead. Judges every line against the account's own target cost per result, checks tracking before calling anything waste, lists X and ChatGPT Ads spend as not judged, and hands each line to the skill that fixes it. Use when someone asks where their ad money is wasted, which platform wastes the most, or for a monthly waste review. Not for blocking Google search terms (wasted-spend-hunter), a full Meta audit (meta-ads-audit), a results drop (what-needs-attention) or a tracking problem (tracking-health).
 compatibility: Needs the PaidSync MCP server at https://mcp.paidsync.ai/mcp with at least one of Google Ads, Microsoft Advertising, Meta or LinkedIn connected. Each is checked when connected.
 metadata:
   publisher: PaidSync
@@ -8,7 +8,7 @@ metadata:
   version: "1.0"
 ---
 
-# Waste Across Channels (Google, Microsoft, Meta, LinkedIn)
+# Waste Across Channels
 
 One ranked list of the money that bought nothing, on every channel PaidSync
 can judge, with each line handed to the skill that fixes it.
@@ -65,7 +65,8 @@ from Claude's connector directory first: https://claude.ai/directory/9f9cc23d-33
    connected platforms.
 2. If a tool named below is not in your tool list, call paidsync_context
    with include_tools: ["google_ads", "microsoft_ads", "facebook_ads",
-   "linkedin_ads", "intelligence"],
+   "linkedin_ads", "tiktok_ads", "snapchat_ads", "reddit_ads",
+   "pinterest_ads", "x_ads", "openai_ads", "intelligence"],
    or with search set to the tool's name, to find it and its arguments.
 3. Reads. Call a read tool directly when it is in your tool list.
    Otherwise run it through paidsync_read with tool: "tool_name" and
@@ -85,10 +86,11 @@ Skip a platform that is not connected and say so.
 
 ## Stage 0. Accounts and targets
 
-1. From the Connection step, name which of Google Ads, Microsoft
-   Advertising, Meta and LinkedIn are connected, and every other connected
-   ad platform. Find the account on each with list_google_ads_accounts,
-   list_ms_accounts, list_fb_ad_accounts and list_linkedin_ad_accounts.
+1. From the Connection step, name every connected ad platform. Find the
+   account on each with list_google_ads_accounts, list_ms_accounts,
+   list_fb_ad_accounts, list_linkedin_ad_accounts, list_tiktok_advertisers,
+   list_snapchat_accounts, list_reddit_accounts, list_pinterest_accounts,
+   list_x_accounts and list_openai_accounts.
    Confirm each with the user, with its name and currency. When a platform
    has several accounts, ask which, never guess.
 2. Call get_brand_conversion_goal for each confirmed account, together.
@@ -147,11 +149,23 @@ What the account shows
    campaign_ids set to the campaigns that spent and the same dates. It
    returns website conversions and Lead Gen Form leads apart; show both
    and judge on the one the user named.
-6. Every other connected ad platform. get_cross_platform_performance for
-   the same dates with platforms set to those platforms, for their spend
-   only. Each is "not checked" in the result, because this skill does not
-   judge waste there yet.
-7. The lag. Run the search term, ad and campaign reads from steps 2 to 5
+6. The other platforms, by campaign, for the same dates in the date fields
+   each report takes. TikTok: get_tiktok_performance with level:
+   "campaign". Reddit: get_reddit_performance with breakdown: "CAMPAIGN";
+   its end is the day after the last day. Pinterest:
+   get_pinterest_performance with campaign_ids from
+   list_pinterest_campaigns, judged on its click-attributed conversions
+   where it returns them, with the window named. Snapchat: get_snapchat_performance for each
+   campaign from list_snapchat_campaigns, with start_time and end_time.
+   PaidSync reads no tracking for these four here, so tracking counts as
+   receiving only when the same account counts conversions on some
+   campaign in the same dates. Otherwise every zero-conversion line there
+   is Check first. X (get_x_performance) and ChatGPT Ads
+   (get_openai_performance with scope: "ad_account") report no
+   conversions here, so their spend is listed and not judged.
+   get_cross_platform_performance for the same dates fills in the spend of
+   any platform whose own report fails, marked not checked.
+7. The lag. Run the search term, ad and campaign reads from steps 2 to 6
    a second time, from the same start date to the lag cutoff, so each
    line's earlier spend is known. Spend after the cutoff is shown but
    never judged, because its conversions may still arrive.
@@ -169,8 +183,9 @@ its spend up to the lag cutoff, divided by the target cost per result.
   reason. When similar terms converted in the same window, it is Check
   first instead.
 - A Meta ad set built for reach, video views or any result other than the
-  one named, and a LinkedIn campaign built for awareness, are left out of
-  the waste and named, because zero results is what they were built for.
+  one named, and a campaign built for awareness on any platform, are left
+  out of the waste and named, because zero results is what they were built
+  for.
 - A LinkedIn campaign in its first 7 days is too early to read.
 - Anything the stage 0 limits protect is left out, and you say which.
 
@@ -188,8 +203,8 @@ Close with "I will rank the waste." Ask before stage 2.
 What I suggest
 
 The coverage line first: each platform checked with its dates and the
-tracking level it reached, and each platform not checked with the reason
-and its spend in the same dates.
+tracking level it reached, and each platform not checked or not judged
+with the reason and its spend in the same dates.
 
 Then one list, ranked by wasted money, largest first: rank, platform, the
 search term, ad or campaign with its id, spend, results, expected results,
@@ -208,6 +223,9 @@ Each line goes to one skill.
   pauses only where another ad keeps the ad set running. A whole Meta ad
   set or campaign with no results goes to meta-ads-audit.
 - A LinkedIn campaign goes to linkedin-campaign-qa.
+- A TikTok, Snapchat, Reddit or Pinterest campaign has no skill of its
+  own yet. List the exact change (a lower budget or a pause) for the user
+  to make in that platform.
 - Any line called Check first on tracking goes to tracking-health first.
 
 Close with "I will start with <the skill for the top line>." Ask which

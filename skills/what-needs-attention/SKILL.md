@@ -1,6 +1,6 @@
 ---
 name: what-needs-attention
-description: Find what needs attention in connected ad accounts, or why results dropped, through the PaidSync MCP server, in stages that stop for the user's go-ahead. Confirms a drop against the account's own history, splits traffic from conversion rate, reads impression share lost to budget against lost to rank, device and conversion action, then each platform's change history and PaidSync's own change log around the day it started, checking tracking on the way. Gives the likely cause with its evidence, or says it cannot tell. Turns back on a campaign, ad set or ad paused by mistake after a dry run and the user's yes, and hands every other fix to the skill that owns it. Use when someone asks what needs attention, why sales, leads or results dropped, why cost per result rose, or what changed this week. Not for a weekly summary (weekly-results-recap), wasted spend (waste-across-channels) or budget pacing (budget-pacing).
+description: Find what needs attention in connected ad accounts, or why results dropped, on any platform, through the PaidSync MCP server, in stages that stop for the user's go-ahead. Confirms a drop against the account's own history, splits traffic from conversion rate, reads impression share lost to budget against rank, device and conversion action, then each platform's change history and PaidSync's own change log around the day it started, checking tracking, a platform-wide problem and changes by unknown users on the way. Gives the likely cause with its evidence, or says it cannot tell. Turns back on what was paused by mistake after a dry run and the user's yes, and hands every other fix to the skill that owns it. Use when someone asks what needs attention, why results dropped, why cost per result rose, or what changed. Not for a results report (results-recap), wasted spend (waste-across-channels), budgets (budget-pacing), or recommendations and auto-apply.
 compatibility: Needs the PaidSync MCP server at https://mcp.paidsync.ai/mcp with at least one of Google Ads, Microsoft Advertising, Meta or LinkedIn connected. Each is read when connected.
 metadata:
   publisher: PaidSync
@@ -65,7 +65,8 @@ from Claude's connector directory first: https://claude.ai/directory/9f9cc23d-33
    connected platforms.
 2. If a tool named below is not in your tool list, call paidsync_context
    with include_tools: ["google_ads", "microsoft_ads", "facebook_ads",
-   "linkedin_ads", "intelligence"],
+   "linkedin_ads", "tiktok_ads", "snapchat_ads", "reddit_ads",
+   "pinterest_ads", "x_ads", "openai_ads", "intelligence"],
    or with search set to the tool's name, to find it and its arguments.
 3. Reads. Call a read tool directly when it is in your tool list.
    Otherwise run it through paidsync_read with tool: "tool_name" and
@@ -87,8 +88,10 @@ Skip a platform that is not connected and say so.
 
 1. From the Connection step, name the connected ad platforms. Find the
    account on each with list_google_ads_accounts, list_ms_accounts,
-   list_fb_ad_accounts and list_linkedin_ad_accounts, and confirm each
-   with the user, with its name and currency.
+   list_fb_ad_accounts, list_linkedin_ad_accounts, list_tiktok_advertisers,
+   list_snapchat_accounts, list_reddit_accounts, list_pinterest_accounts,
+   list_x_accounts and list_openai_accounts, and confirm each with the
+   user, with its name and currency.
 2. Call get_brand_conversion_goal for each confirmed account, and
    get_account_access for each platform, together. If get_account_access
    shows PaidSync may not change an account, say so now. Stage 5 then lists
@@ -136,7 +139,12 @@ What the account shows
    the live campaigns, for both windows.
 5. Microsoft Advertising. get_ms_performance with start_date and end_date
    for both windows.
-6. The first day and the normal range. get_daily_campaign_rows for Google
+6. The other platforms, for both windows, in the date fields each report
+   takes: get_tiktok_performance, get_reddit_performance (its end is the
+   day after the last day), get_pinterest_performance, get_x_performance,
+   get_openai_performance with scope: "ad_account" and, for each campaign
+   from list_snapchat_campaigns, get_snapchat_performance.
+7. The first day and the normal range. get_daily_campaign_rows for Google
    Ads and Meta, and get_daily_performance_rows for the other platforms,
    from the start of the 28-day baseline to the end of the recent window,
    following next_cursor or next_offset. The baseline days give the normal
@@ -148,7 +156,7 @@ or Not a drop (inside its normal range, or the last days are still filling
 in with conversions).
 
 When nothing that moved is real, say so plainly, list what moved inside
-its normal range, and offer the weekly-results-recap skill instead of
+its normal range, and offer the results-recap skill instead of
 going on.
 
 Close with "I will split the <metric> drop." Ask before stage 2.
@@ -175,7 +183,8 @@ Work only on the platform and dates that moved, from stage 1.
    impression share here, and you say so.
 3. Campaigns. get_campaign_performance for Google Ads,
    get_fb_adset_performance for Meta, get_linkedin_performance with
-   campaign_ids for LinkedIn and get_ms_performance for Microsoft, for both
+   campaign_ids for LinkedIn, get_ms_performance for Microsoft, and the
+   campaign level of each other platform's report from stage 1, for both
    windows. Rank them by the results lost, and name any that stopped or
    started.
 4. Device. get_performance_summary with segment: "device" for Google Ads
@@ -205,16 +214,27 @@ What the account shows
    get_fb_account_activity for Meta, with since and until.
    get_ms_change_history for Microsoft, with start_date and end_date; a
    change can take about an hour to appear there. PaidSync does not read
-   LinkedIn's change history, so ask the user what changed in Campaign
-   Manager.
+   the change history of LinkedIn, TikTok, Snapchat, Reddit, Pinterest, X
+   or ChatGPT Ads, so ask the user what changed there.
+   A change made by someone the user does not recognise comes first. Each
+   history names who or what made a change (a user's email, a person, or
+   the tool used), so list those with who, when and what, and ask the
+   user. PaidSync does not read who has access to an ad account, so say so
+   and point to that platform's own user settings.
 2. PaidSync's own changes. get_operator_change_log for each account with
    window_days: 7 and limit: 100. It lists the newest changes first, so
    keep those dated in the span above. When 100 rows come back, say older
    changes in the span may be missing. Each row shows what PaidSync
    changed, the old and new values, and the account's spend and
-   conversions before and after. A before and
-   after is not proof the change caused the drop.
-3. Tracking, on the way, with the level each reached. Google Ads and Meta:
+   conversions before and after. A before and after is not proof the
+   change caused the drop.
+3. Is it the platform. When one platform moved, run
+   get_daily_performance_rows for that platform over the same days with no
+   account filter. It covers only the user's own connected accounts, never
+   anyone else's. The same drop starting on the same day on every one of
+   them, with no change in any, points to the platform itself: say so and
+   tell the user to check that platform's public status page.
+4. Tracking, on the way, with the level each reached. Google Ads and Meta:
    get_conversion_tracking_status with platform: "google_ads" or
    "meta_ads", and get_fb_pixel_events for each pixel from list_fb_pixels.
    Microsoft: list_ms_conversion_goals. LinkedIn: list_linkedin_conversions
@@ -229,6 +249,10 @@ The likely causes, ranked by how much of the drop each explains.
 - A change on or just before the first day that touches what moved: a
   pause, a budget cut, a bid strategy or target change, new or removed
   ads, keywords or targeting.
+- A change by someone the user does not recognise. That comes first after
+  tracking.
+- The platform itself, when every one of the user's accounts on it fell
+  on the same day with no change in any.
 - Impression share lost to budget or to rank.
 - Nothing in the account explains it. Say the cause is outside what
   PaidSync reads, such as demand, season, a site or offer change or

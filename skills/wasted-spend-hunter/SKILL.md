@@ -1,11 +1,11 @@
 ---
 name: wasted-spend-hunter
-description: Find Google Ads search terms that spend money with no conversions and block them with negative keywords through the PaidSync MCP server, in stages that stop for the user's go-ahead, after a dry run and the user's yes. Judges each term against the account's own target cost per conversion, checks tracking first, and covers Microsoft Advertising search terms when connected. Use when someone asks where their Google Ads money goes to waste, which searches to block, why spend rose without more sales, or for a monthly search term cleanup. Not for the weekly sort of new terms into block, watch and add (negative-keyword-triage), Meta or LinkedIn spend, or a conversion tracking problem (tracking-health).
+description: Find Google Ads search terms that spend money with no conversions and block them with negative keywords through the PaidSync MCP server, in stages that stop for the user's go-ahead, after a dry run and the user's yes. Judges each term against the account's own target cost per conversion, checks tracking first, and covers Microsoft Advertising search terms when connected. Use when someone asks which Google Ads searches to block, which search terms spend and never convert, why Google spend rose without more sales, or for a monthly search term cleanup. Not for wasted spend ranked across channels (waste-across-channels), the weekly sort of new terms into block, watch and add (negative-keyword-triage), Meta or LinkedIn spend, or a conversion tracking problem (tracking-health).
 compatibility: Needs the PaidSync MCP server at https://mcp.paidsync.ai/mcp with a Google Ads account connected. Microsoft Advertising is checked when connected.
 metadata:
   publisher: PaidSync
   homepage: https://paidsync.ai/skills/wasted-spend-hunter
-  version: "2.1"
+  version: "2.2"
 ---
 
 # Wasted Spend Hunter (Google Ads)

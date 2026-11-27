@@ -10,7 +10,7 @@
     {
       "name": "paidsync",
       "displayName": "PaidSync",
-      "description": "Eleven PaidSync ads skills for Claude Code: wasted spend, negative keywords, Meta audit, creative fatigue, LinkedIn campaign QA, tracking health, waste across channels, what needs attention, weekly recap, budget pacing and competitor ads. Runs on the PaidSync.ai connector from Claude's connector directory.",
+      "description": "Eleven PaidSync ads skills for Claude Code: wasted spend, negative keywords, Meta audit, creative fatigue, LinkedIn campaign QA, tracking health, waste across channels, what needs attention, results recap, budget pacing and competitor ads. Runs on the PaidSync.ai connector from Claude's connector directory.",
       "version": "1.0.5",
       "author": {
         "name": "PaidSync",

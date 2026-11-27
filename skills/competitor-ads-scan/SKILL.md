@@ -1,6 +1,6 @@
 ---
 name: competitor-ads-scan
-description: Scan what named competitors run now in Meta's Ad Library through the PaidSync MCP server, in stages that stop for the user's go-ahead. Finds each competitor's Facebook Page, reads its ads with start dates and links, groups the messages into the themes seen most and those not seen in the ads retrieved, checks each against the brand's own truths, and ends in creative briefs in the brand's own words. Says plainly what the library covers. Meta returns commercial ads only when they reached the EU countries searched, so the scan cannot prove a theme is unused, and Google, LinkedIn, TikTok and Microsoft ads are not read. Offers a monthly saved scan after the user's yes. Use when someone asks what competitors are running, for competitor ad research, or for new ad angles. Not for the brand's own tired ads (creative-fatigue-scan) or a Meta account audit (meta-ads-audit).
+description: Scan what named competitors run now in Meta's Ad Library through the PaidSync MCP server, in stages that stop for the user's go-ahead. Finds each competitor's Facebook Page, reads its ads with start dates and links, groups the messages into the themes seen most and those not seen in the ads retrieved, checks each against the brand's own truths, and ends in creative briefs in the brand's own words. Says plainly what the library covers. Meta returns commercial ads only when they reached the EU countries searched, so the scan cannot prove a theme is unused, and Google, LinkedIn, TikTok and Microsoft ads are not read, nor Google's auction insights. Offers a monthly saved scan after the user's yes. Use when someone asks what competitors are running, for competitor ad research, or for new ad angles. Not for the brand's own tired ads (creative-fatigue-scan) or a Meta account audit (meta-ads-audit).
 compatibility: Needs the PaidSync MCP server at https://mcp.paidsync.ai/mcp with Meta connected, because the Ad Library is read through the connected Meta login. A brand's own Meta ad account is read when connected.
 metadata:
   publisher: PaidSync
@@ -86,7 +86,9 @@ from Claude's connector directory first: https://claude.ai/directory/9f9cc23d-33
    ads about social issues, elections or politics, so a competitor that
    advertises only in the US shows little here. PaidSync does not read
    Google's, LinkedIn's, TikTok's or Microsoft's ad libraries, so ads there
-   are not checked.
+   are not checked. Google's auction insights, which show who bids in the
+   same auctions, cannot be read through PaidSync either, so say so when
+   the user asks who they compete with on Google.
 3. Ask in one message only what this scan needs, and skip anything the
    user already said.
    - The competitors, up to 10, by name or Facebook Page link.

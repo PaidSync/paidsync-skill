@@ -1,19 +1,19 @@
 ---
 name: creative-fatigue-scan
-description: A trend screen for Meta ads through the PaidSync MCP server, in stages that stop for the user's go-ahead, with each ad's picture beside its numbers. Compares each ad's last 14 days with the 14 before on frequency, click rate, cost per thousand impressions and cost per result, and reads each ad as Holding, Slipping, Needs a look or Too little data. Uses Meta's own signal when a PaidSync read returns one, and otherwise says the screen is PaidSync's rule of thumb. Proposes replacements and briefs, and pauses only where another ad keeps the ad set running, after a dry run and the user's yes. Use when Meta results are sliding, someone asks which ads are tired or what creative to brief next. Not for a full Meta audit (meta-ads-audit) or tracking problems (tracking-health).
+description: A trend screen for Meta ads through the PaidSync MCP server, in stages that stop for the user's go-ahead, with each ad's picture beside its numbers. Compares each ad's last 14 days with the 14 before on frequency, click rate, cost per thousand impressions and cost per result, and reads each ad as Holding, Slipping, Needs a look or Too little data. Reads Meta's own creative fatigue flag and its quality, engagement and conversion rankings first, and uses PaidSync's labelled rule of thumb only where Meta returns none. Proposes replacements and briefs, and pauses only where another ad keeps the ad set running, after a dry run and the user's yes. Use when Meta results are sliding, someone asks which ads are tired or what creative to brief next. Not for a full Meta audit (meta-ads-audit) or tracking problems (tracking-health).
 compatibility: Needs the PaidSync MCP server at https://mcp.paidsync.ai/mcp with a Meta ad account connected.
 metadata:
   publisher: PaidSync
   homepage: https://paidsync.ai/skills/creative-fatigue-scan
-  version: "2.1"
+  version: "2.2"
 ---
 
 # Creative Fatigue Scan (Meta Ads)
 
-This is a trend screen, not a fatigue verdict. Meta publishes its own
-creative fatigue signal, which PaidSync does not read yet, so the screen
-says what moved and by how much, labels its rule of thumb as PaidSync's, and
-never calls an ad fatigued.
+This is a trend screen. Meta's own creative fatigue flag and ad rankings
+come first wherever Meta returns them. Where Meta returns none, the screen
+says what moved and by how much, labels its rule of thumb as PaidSync's,
+and never calls an ad fatigued.
 
 ## How this skill runs
 
@@ -115,24 +115,29 @@ What the account shows
 1. Tracking first. Run list_fb_pixels and get_fb_pixel_events for the
    pixel behind the result that counts, and name the level it reached.
 2. Run get_fb_ad_performance with start_date and end_date for each window.
+   For each ad it returns the cost per thousand impressions, Meta's own
+   quality, engagement rate and conversion rate rankings, and Meta's
+   recommendations that name the ad or its ad set, including Meta's
+   creative fatigue flag.
 3. Run list_fb_ads for each ad's name, ad set, creative and created time.
 4. Pictures. Take each ad's creative id from list_fb_ads, then image_url
    or thumbnail_url from list_fb_creatives, paging with after. For a video
    whose picture is small, use get_fb_creative_hd_thumbnail. For a
    creative with only an image_hash, use get_fb_ad_image_permalink.
-5. Meta's own signal comes first. When a read in this session returns one
-   for an ad, such as a fatigue flag or an ad relevance ranking, use it
-   and name it. When none does, label the reading "PaidSync rule of thumb,
-   not Meta's signal".
-6. Cost per thousand impressions. Work it out from the spend and
-   impressions returned for the same dates and currency, and say so. It
-   often rises before the click rate falls.
+5. Meta's own signal comes first. When Meta flags an ad as fatigued, or
+   ranks it below average, use that and name it. A ranking reads "Meta
+   does not report this yet" until an ad has enough impressions. Only when
+   Meta returns no flag and no ranking for an ad, label its reading
+   "PaidSync rule of thumb, not Meta's signal".
+6. Cost per thousand impressions. Use the cost per thousand Meta returns
+   for each window. It often rises before the click rate falls.
 7. Read each ad from its own trend, one of four.
    - Holding: stable or improving.
    - Slipping: frequency rising while click rate or conversion rate falls.
-   - Needs a look: frequency above 4 and click rate down 30 percent or
-     more, or cost per result up 40 percent or more on similar spend.
-     These are defaults the user can change.
+   - Needs a look: Meta flags it as fatigued; or, where Meta returns no
+     flag, frequency above 4 and click rate down 30 percent or more, or
+     cost per result up 40 percent or more on similar spend. These are
+     defaults the user can change.
    - Too little data: no delivery in the earlier window, or spend under 3
      target costs per result in either window.
 
