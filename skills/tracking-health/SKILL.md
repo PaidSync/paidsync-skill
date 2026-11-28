@@ -265,9 +265,10 @@ Close with "I will review the workspace." Ask before stage 4.
 
 ## Stage 4. Publish, only after a second yes
 
-1. Run create_gtm_version, which does not publish, and show
-   get_gtm_workspace_status so the user sees every change. Offer
-   preview_gtm_workspace for a test.
+1. Show get_gtm_workspace_status so the user sees every change, and
+   offer preview_gtm_workspace for a test. create_gtm_version has no dry
+   run: it saves the workspace as a version and does not publish, so show
+   its exact arguments and run it only after the user's yes to this stage.
 2. Call publish_gtm_version with dry_run: true and show what would go
    live against the version live now.
 3. Only on a second, explicit yes, call it again with dry_run: false,
